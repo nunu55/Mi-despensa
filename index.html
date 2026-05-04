@@ -30,8 +30,9 @@ h1,h2,h3{font-family:'Playfair Display',serif}
 
 #app{display:none}
 .nav{background:var(--olive);padding:0 1rem;display:flex;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
-.nav-brand{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;padding:.85rem .75rem .85rem 0;margin-right:auto;white-space:nowrap;line-height:1.2}
-.nav-brand span{color:#C8D4A0;font-size:.72rem;display:block;font-family:'DM Sans',sans-serif;font-weight:300}
+.nav-brand{display:flex;align-items:center;gap:.5rem;font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;padding:.75rem .75rem .75rem 0;margin-right:auto;white-space:nowrap;line-height:1.2;text-decoration:none}
+.nav-brand-icon{width:32px;height:32px;flex-shrink:0}
+.nav-brand-text span{color:#C8D4A0;font-size:.72rem;display:block;font-family:'DM Sans',sans-serif;font-weight:300}
 .nav-tabs{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nav-tab{background:none;border:none;color:rgba(255,255,255,0.65);padding:.85rem .85rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:400;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
 .nav-tab:hover{color:#fff}
@@ -155,7 +156,7 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 <!-- AUTH -->
 <div id="auth-screen">
   <div class="auth-box">
-    <div class="auth-logo">🥘 La Despensa</div>
+    <div class="auth-logo">🍽️ La Despensa</div>
     <div class="auth-sub">Planificador de comidas semanal</div>
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="switchAuthTab('login',this)">Iniciar sesión</button>
@@ -179,7 +180,18 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 <!-- APP -->
 <div id="app">
   <nav class="nav">
-    <div class="nav-brand">La Despensa<span>planificador de comidas</span></div>
+    <div class="nav-brand">
+      <svg class="nav-brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" fill="#C8D4A0" opacity="0.25"/>
+        <ellipse cx="16" cy="20" rx="10" ry="5" fill="#C8D4A0" opacity="0.5"/>
+        <path d="M7 18 Q16 10 25 18" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="16" cy="15" r="4" fill="#fff" opacity="0.9"/>
+        <path d="M14 15 Q16 13 18 15" stroke="#C8D4A0" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <path d="M16 8 L16 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M16 5 Q17 3 19 4" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="nav-brand-text">La Despensa<span>planificador de comidas</span></div>
+    </div>
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="showSection('recipes',this)">Recetas</button>
       <button class="nav-tab" onclick="showSection('planner',this)">Semana</button>
@@ -201,9 +213,11 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
       </div>
       <div class="filter-tabs">
         <button class="filter-tab active" onclick="setFilter('all',this)">Todas</button>
-        <button class="filter-tab" onclick="setFilter('Desayunos',this)">Desayunos</button>
+        <button class="filter-tab" onclick="setFilter('Desayunos',this)">🍳 Desayunos</button>
         <button class="filter-tab" onclick="setFilter('Primeros',this)">Primeros</button>
         <button class="filter-tab" onclick="setFilter('Segundos',this)">Segundos</button>
+        <button class="filter-tab" onclick="setFilter('Plato único',this)">🍱 Plato único</button>
+        <button class="filter-tab" onclick="setFilter('Snacks',this)">🍏 Snacks</button>
         <button class="filter-tab" onclick="setFilter('Postres',this)">Postres</button>
         <button class="filter-tab" onclick="setFilter('Otros',this)">Otros</button>
       </div>
@@ -282,8 +296,9 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
           <option value="Entrantes">Entrantes</option>
           <option value="Primeros" selected>Primeros</option>
           <option value="Segundos">Segundos</option>
+          <option value="Plato único">Plato único</option>
+          <option value="Snacks">Snacks</option>
           <option value="Postres">Postres</option>
-          <option value="Meriendas">Meriendas</option>
           <option value="Otros">Otros</option>
         </select>
       </div>
@@ -355,9 +370,9 @@ const firebaseConfig = {
   appId: "1:480773167529:web:83b7418daff921c6560cb8"
 };
 
-const fbApp = initializeApp(firebaseConfig);
-const auth  = getAuth(fbApp);
-const db    = getFirestore(fbApp);
+const fbApp   = initializeApp(firebaseConfig);
+const auth    = getAuth(fbApp);
+const db      = getFirestore(fbApp);
 const storage = getStorage(fbApp);
 
 const DAYS  = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
@@ -365,16 +380,52 @@ const SLOTS = ['desayuno','snack_man','comida','snack_tar','cena'];
 const SLOT_LABELS = {desayuno:'Desayuno',snack_man:'Snack 🌅',comida:'Comida',snack_tar:'Snack 🌇',cena:'Cena'};
 const UNITS = ['g','kg','ml','l','ud','cdta','cda','taza','al gusto'];
 
-let currentUser = null;
-let myRecipes   = [];
-let pubRecipes  = [];
-let plan        = {};
-let persons     = 2;
-let shopping    = {};
-let editingId   = null;
-let photoData   = null;
-let photoMode   = 'upload';
+let currentUser   = null;
+let myRecipes     = [];
+let pubRecipes    = [];
+let plan          = {};
+let persons       = 2;
+let shopping      = {};
+let editingId     = null;
+let photoData     = null;
+let photoMode     = 'upload';
 let currentFilter = 'all';
+let seedDone      = false;
+
+// ---- SEED RECIPES ----
+const SEED_RECIPES = [
+  // DESAYUNOS
+  {name:'Huevos con avena y fruta',category:'Desayunos',time:'10 min',public:true,notes:'Huevos revueltos o a la plancha. Avena con agua o leche. Acompañar de fruta de temporada.',ingredients:[{name:'Huevos',amount:2,unit:'ud'},{name:'Claras de huevo',amount:150,unit:'g'},{name:'Avena',amount:40,unit:'g'},{name:'Fruta',amount:1,unit:'ud'}]},
+  {name:'Yogur proteico con avena y nueces',category:'Desayunos',time:'5 min',public:true,notes:'Mezclar yogur con avena. Añadir nueces y fruta al gusto.',ingredients:[{name:'Yogur alto en proteína',amount:250,unit:'g'},{name:'Avena',amount:30,unit:'g'},{name:'Nueces',amount:10,unit:'g'},{name:'Fruta',amount:1,unit:'ud'}]},
+  {name:'Tostadas de aguacate con huevos',category:'Desayunos',time:'10 min',public:true,notes:'Tostar el pan. Aplastar el aguacate con sal y limón. Colocar encima. Huevos al gusto.',ingredients:[{name:'Pan',amount:60,unit:'g'},{name:'Aguacate',amount:80,unit:'g'},{name:'Huevos',amount:2,unit:'ud'}]},
+  {name:'Batido proteico con plátano',category:'Desayunos',time:'5 min',public:true,notes:'Batir todos los ingredientes hasta obtener una textura homogénea.',ingredients:[{name:'Proteína en polvo (scoop)',amount:1,unit:'ud'},{name:'Leche o bebida vegetal',amount:200,unit:'ml'},{name:'Avena',amount:40,unit:'g'},{name:'Plátano',amount:1,unit:'ud'}]},
+  {name:'Queso fresco con granola y frutos rojos',category:'Desayunos',time:'5 min',public:true,notes:'Servir el queso fresco batido con granola o avena por encima y frutos rojos.',ingredients:[{name:'Queso fresco batido',amount:250,unit:'g'},{name:'Granola o avena',amount:30,unit:'g'},{name:'Frutos rojos',amount:80,unit:'g'}]},
+  {name:'Tortitas de avena con yogur',category:'Desayunos',time:'15 min',public:true,notes:'Mezclar avena, claras y huevo. Hacer tortitas en sartén antiadherente. Acompañar de yogur o fruta.',ingredients:[{name:'Avena',amount:40,unit:'g'},{name:'Claras de huevo',amount:60,unit:'g'},{name:'Huevo',amount:1,unit:'ud'},{name:'Yogur o fruta',amount:1,unit:'ud'}]},
+  {name:'Tostadas con jamón y tomate',category:'Desayunos',time:'5 min',public:true,notes:'Tostar el pan. Frotar con tomate y añadir el aceite. Colocar el jamón encima.',ingredients:[{name:'Pan',amount:60,unit:'g'},{name:'Jamón serrano o cocido',amount:60,unit:'g'},{name:'Tomate',amount:1,unit:'ud'},{name:'Aceite de oliva',amount:5,unit:'g'}]},
+  // COMIDAS (Plato único)
+  {name:'Arroz con pollo y verduras',category:'Plato único',time:'30 min',public:true,notes:'Cocinar el arroz. Hacer el pollo a la plancha con verduras. Mezclar y aliñar con AOVE.',ingredients:[{name:'Arroz cocido',amount:120,unit:'g'},{name:'Pollo',amount:150,unit:'g'},{name:'Verduras mixtas',amount:150,unit:'g'},{name:'Aceite de oliva (AOVE)',amount:10,unit:'g'}]},
+  {name:'Pasta con atún y tomate',category:'Plato único',time:'20 min',public:true,notes:'Cocer la pasta. Mezclar con atún escurrido, tomate y verduras. Aliñar con AOVE.',ingredients:[{name:'Pasta',amount:80,unit:'g'},{name:'Atún en lata',amount:1,unit:'ud'},{name:'Tomate',amount:100,unit:'g'},{name:'Verduras',amount:100,unit:'g'},{name:'Aceite de oliva (AOVE)',amount:10,unit:'g'}]},
+  {name:'Patata con carne picada y verduras',category:'Plato único',time:'35 min',public:true,notes:'Cocer o asar la patata. Hacer la carne picada con verduras a la sartén.',ingredients:[{name:'Patata',amount:200,unit:'g'},{name:'Carne picada magra',amount:150,unit:'g'},{name:'Verduras',amount:150,unit:'g'}]},
+  {name:'Ensalada completa con pollo',category:'Plato único',time:'15 min',public:true,notes:'Base de verduras variadas. Añadir pollo a la plancha, queso y pan. Aliñar con aceite.',ingredients:[{name:'Verduras variadas',amount:150,unit:'g'},{name:'Pollo',amount:120,unit:'g'},{name:'Queso',amount:40,unit:'g'},{name:'Pan',amount:30,unit:'g'},{name:'Aceite de oliva',amount:10,unit:'g'}]},
+  {name:'Lentejas con verduras',category:'Plato único',time:'45 min',public:true,notes:'Cocer lentejas con verduras. Añadir huevo cocido o pollo para completar la proteína.',ingredients:[{name:'Lentejas (en seco)',amount:60,unit:'g'},{name:'Verduras',amount:150,unit:'g'},{name:'Huevo cocido o pollo',amount:100,unit:'g'}]},
+  {name:'Burrito bowl',category:'Plato único',time:'25 min',public:true,notes:'Cocer el arroz. Hacer el pollo o ternera a la plancha. Montar el bowl con maíz, verduras y yogur como salsa.',ingredients:[{name:'Arroz',amount:100,unit:'g'},{name:'Pollo o ternera',amount:120,unit:'g'},{name:'Maíz',amount:50,unit:'g'},{name:'Verduras',amount:100,unit:'g'},{name:'Yogur natural',amount:50,unit:'g'}]},
+  {name:'Cous cous con pollo y verduras',category:'Plato único',time:'20 min',public:true,notes:'Hidratar el cous cous con agua caliente. Hacer el pollo y verduras a la plancha. Mezclar y aliñar.',ingredients:[{name:'Cous cous',amount:80,unit:'g'},{name:'Pollo',amount:150,unit:'g'},{name:'Verduras',amount:150,unit:'g'},{name:'Aceite de oliva',amount:10,unit:'g'}]},
+  // CENAS
+  {name:'Pollo a la plancha con verduras',category:'Segundos',time:'20 min',public:true,notes:'Pollo sazonado a la plancha. Verduras salteadas o al vapor. Acompañar de pan.',ingredients:[{name:'Pollo',amount:150,unit:'g'},{name:'Verduras',amount:200,unit:'g'},{name:'Pan',amount:40,unit:'g'}]},
+  {name:'Tortilla con ensalada',category:'Segundos',time:'15 min',public:true,notes:'Hacer la tortilla con huevos y claras. Servir con ensalada grande y pan.',ingredients:[{name:'Huevos',amount:2,unit:'ud'},{name:'Claras de huevo',amount:60,unit:'g'},{name:'Ensalada',amount:200,unit:'g'},{name:'Pan',amount:30,unit:'g'}]},
+  {name:'Salmón con verduras',category:'Segundos',time:'20 min',public:true,notes:'Salmón al horno o a la plancha con verduras de temporada.',ingredients:[{name:'Salmón',amount:150,unit:'g'},{name:'Verduras',amount:200,unit:'g'}]},
+  {name:'Ternera con verduras y pan',category:'Segundos',time:'20 min',public:true,notes:'Filete de ternera a la plancha con verduras salteadas. Acompañar de pan.',ingredients:[{name:'Ternera',amount:150,unit:'g'},{name:'Verduras',amount:200,unit:'g'},{name:'Pan',amount:35,unit:'g'}]},
+  {name:'Revuelto de champiñones con ensalada',category:'Segundos',time:'15 min',public:true,notes:'Saltear champiñones. Añadir huevos y claras y remover. Servir con ensalada.',ingredients:[{name:'Huevos',amount:2,unit:'ud'},{name:'Claras de huevo',amount:60,unit:'g'},{name:'Champiñones',amount:150,unit:'g'},{name:'Ensalada',amount:150,unit:'g'}]},
+  {name:'Queso fresco con fruta y nueces',category:'Segundos',time:'5 min',public:true,notes:'Servir el queso fresco batido con fruta y nueces. Cena ligera y proteica.',ingredients:[{name:'Queso fresco batido',amount:200,unit:'g'},{name:'Fruta',amount:1,unit:'ud'},{name:'Nueces',amount:10,unit:'g'}]},
+  {name:'Tostadas con atún y tomate',category:'Segundos',time:'5 min',public:true,notes:'Tostar el pan. Añadir atún y tomate aliñado con aceite.',ingredients:[{name:'Pan',amount:60,unit:'g'},{name:'Atún en lata',amount:1,unit:'ud'},{name:'Tomate',amount:100,unit:'g'},{name:'Aceite de oliva',amount:5,unit:'g'}]},
+  // SNACKS
+  {name:'Yogur alto en proteína',category:'Snacks',time:'0 min',public:true,notes:'Snack proteico rápido. Se puede añadir fruta o frutos secos.',ingredients:[{name:'Yogur alto en proteína',amount:200,unit:'g'}]},
+  {name:'Batido de proteína',category:'Snacks',time:'2 min',public:true,notes:'Mezclar la proteína en polvo con leche o agua. Opción rápida post-entreno.',ingredients:[{name:'Proteína en polvo (scoop)',amount:1,unit:'ud'},{name:'Leche o agua',amount:250,unit:'ml'}]},
+  {name:'Queso fresco batido',category:'Snacks',time:'0 min',public:true,notes:'Solo o con fruta. Alto en proteína y bajo en grasa.',ingredients:[{name:'Queso fresco batido',amount:150,unit:'g'}]},
+  {name:'Fruta con frutos secos',category:'Snacks',time:'2 min',public:true,notes:'Combinación de hidratos y grasa saludable. Ideal entre comidas.',ingredients:[{name:'Fruta',amount:1,unit:'ud'},{name:'Frutos secos',amount:12,unit:'g'}]},
+  {name:'Tostada con queso fresco',category:'Snacks',time:'3 min',public:true,notes:'Tostada ligera con queso fresco. Snack saciante.',ingredients:[{name:'Pan',amount:30,unit:'g'},{name:'Queso fresco',amount:50,unit:'g'}]},
+  {name:'Huevo cocido con fruta',category:'Snacks',time:'10 min',public:true,notes:'Snack proteico y saciante. Hervir el huevo 10 minutos.',ingredients:[{name:'Huevo cocido',amount:1,unit:'ud'},{name:'Fruta',amount:1,unit:'ud'}]},
+];
 
 // ---- UTILS ----
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -388,8 +439,8 @@ function friendlyError(code){
 window.switchAuthTab = function(tab,btn){
   document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('login-form').style.display    = tab==='login'    ? 'block':'none';
-  document.getElementById('register-form').style.display = tab==='register' ? 'block':'none';
+  document.getElementById('login-form').style.display    = tab==='login'?'block':'none';
+  document.getElementById('register-form').style.display = tab==='register'?'block':'none';
   document.getElementById('auth-error').classList.remove('show');
 }
 window.doLogin = async function(){
@@ -397,52 +448,62 @@ window.doLogin = async function(){
   catch(e){ showAuthError(friendlyError(e.code)); }
 }
 window.doRegister = async function(){
-  const name = document.getElementById('reg-name').value.trim();
-  if(!name){ showAuthError('Escribe tu nombre'); return; }
+  const name=document.getElementById('reg-name').value.trim();
+  if(!name){showAuthError('Escribe tu nombre');return}
   try{
-    const cred = await createUserWithEmailAndPassword(auth, document.getElementById('reg-email').value.trim(), document.getElementById('reg-pass').value);
-    await updateProfile(cred.user, {displayName: name});
-  } catch(e){ showAuthError(friendlyError(e.code)); }
+    const cred=await createUserWithEmailAndPassword(auth,document.getElementById('reg-email').value.trim(),document.getElementById('reg-pass').value);
+    await updateProfile(cred.user,{displayName:name});
+  } catch(e){showAuthError(friendlyError(e.code));}
 }
-window.doLogout = () => signOut(auth);
+window.doLogout = ()=>signOut(auth);
 
-onAuthStateChanged(auth, async user => {
+onAuthStateChanged(auth, async user=>{
   if(user){
-    currentUser = user;
-    document.getElementById('auth-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('nav-avatar').textContent = (user.displayName||user.email||'?').charAt(0).toUpperCase();
+    currentUser=user;
+    document.getElementById('auth-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    document.getElementById('nav-avatar').textContent=(user.displayName||user.email||'?').charAt(0).toUpperCase();
     await loadUserData();
     await loadRecipes();
+    await maybeSeedRecipes();
     renderRecipes();
     renderPlanner();
   } else {
-    currentUser = null;
-    document.getElementById('auth-screen').style.display = 'flex';
-    document.getElementById('app').style.display = 'none';
-    myRecipes=[]; pubRecipes=[]; plan={}; persons=2; shopping={};
+    currentUser=null;
+    document.getElementById('auth-screen').style.display='flex';
+    document.getElementById('app').style.display='none';
+    myRecipes=[];pubRecipes=[];plan={};persons=2;shopping={};
   }
 });
 
 // ---- FIRESTORE ----
 async function loadUserData(){
   try{
-    const snap = await getDoc(doc(db,'userData',currentUser.uid));
-    if(snap.exists()){const d=snap.data(); plan=d.plan||{}; persons=d.persons||2; shopping=d.shopping||{};}
-  } catch(e){}
+    const snap=await getDoc(doc(db,'userData',currentUser.uid));
+    if(snap.exists()){const d=snap.data();plan=d.plan||{};persons=d.persons||2;shopping=d.shopping||{};}
+  }catch(e){}
 }
 async function saveUserData(){
-  try{ await setDoc(doc(db,'userData',currentUser.uid),{plan,persons,shopping},{merge:true}); } catch(e){}
+  try{await setDoc(doc(db,'userData',currentUser.uid),{plan,persons,shopping},{merge:true});}catch(e){}
 }
 async function loadRecipes(){
-  const qMine = query(collection(db,'recipes'), where('uid','==',currentUser.uid));
-  myRecipes = (await getDocs(qMine)).docs.map(d=>({id:d.id,...d.data()}));
-  const qPub = query(collection(db,'recipes'), where('public','==',true));
-  pubRecipes = (await getDocs(qPub)).docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.uid!==currentUser.uid);
+  const qMine=query(collection(db,'recipes'),where('uid','==',currentUser.uid));
+  myRecipes=(await getDocs(qMine)).docs.map(d=>({id:d.id,...d.data()}));
+  const qPub=query(collection(db,'recipes'),where('public','==',true));
+  pubRecipes=(await getDocs(qPub)).docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.uid!==currentUser.uid);
+}
+
+async function maybeSeedRecipes(){
+  if(myRecipes.length>0) return; // ya tiene recetas, no hacer nada
+  const batch=SEED_RECIPES.map(r=>addDoc(collection(db,'recipes'),{...r,uid:currentUser.uid,photo:null,createdAt:serverTimestamp(),updatedAt:serverTimestamp()}));
+  await Promise.all(batch);
+  // reload
+  const qMine=query(collection(db,'recipes'),where('uid','==',currentUser.uid));
+  myRecipes=(await getDocs(qMine)).docs.map(d=>({id:d.id,...d.data()}));
 }
 
 // ---- SECTIONS ----
-window.showSection = function(id,btn){
+window.showSection=function(id,btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('s-'+id).classList.add('active');
@@ -453,86 +514,77 @@ window.showSection = function(id,btn){
 }
 
 // ---- RECIPES ----
-window.setFilter = function(f,btn){
+window.setFilter=function(f,btn){
   currentFilter=f;
   document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   renderRecipes();
 }
 function renderRecipes(){
-  const c = document.getElementById('recipe-list');
-  let list = currentFilter==='all' ? myRecipes : myRecipes.filter(r=>r.category===currentFilter);
-  c.innerHTML = list.length ? list.map(r=>cardHTML(r,false)).join('') :
-    `<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🍳</div><p>Aún no tienes recetas.<br>¡Añade tu primera receta!</p></div>`;
-  const pc = document.getElementById('public-recipe-list');
-  pc.innerHTML = pubRecipes.length ? pubRecipes.map(r=>cardHTML(r,true)).join('') :
+  const c=document.getElementById('recipe-list');
+  let list=currentFilter==='all'?myRecipes:myRecipes.filter(r=>r.category===currentFilter);
+  c.innerHTML=list.length?list.map(r=>cardHTML(r,false)).join(''):
+    `<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🍳</div><p>No hay recetas en esta categoría.</p></div>`;
+  const pc=document.getElementById('public-recipe-list');
+  pc.innerHTML=pubRecipes.length?pubRecipes.map(r=>cardHTML(r,true)).join(''):
     `<div style="color:var(--muted);font-size:.85rem">Aún no hay recetas públicas de otros usuarios.</div>`;
 }
-function cardHTML(r, isPublic){
-  const imgHTML = r.photo
-    ? `<div class="recipe-img"><img src="${esc(r.photo)}" alt="${esc(r.name)}" onerror="this.parentElement.innerHTML='🍽️'"></div>`
-    : `<div class="recipe-img">🍽️</div>`;
-  const actions = isPublic
-    ? `<button class="btn btn-outline btn-sm" onclick="copyRecipe('${r.id}')">Copiar a mis recetas</button>`
-    : `<button class="btn-icon" onclick="editRecipe('${r.id}')">✏️</button><button class="btn-icon" onclick="deleteRecipe('${r.id}')">🗑️</button>`;
+function cardHTML(r,isPublic){
+  const imgHTML=r.photo
+    ?`<div class="recipe-img"><img src="${esc(r.photo)}" alt="${esc(r.name)}" onerror="this.parentElement.innerHTML='🍽️'"></div>`
+    :`<div class="recipe-img">🍽️</div>`;
+  const actions=isPublic
+    ?`<button class="btn btn-outline btn-sm" onclick="copyRecipe('${r.id}')">Copiar a mis recetas</button>`
+    :`<button class="btn-icon" onclick="editRecipe('${r.id}')">✏️</button><button class="btn-icon" onclick="deleteRecipe('${r.id}')">🗑️</button>`;
   return `<div class="recipe-card">${imgHTML}
     <div class="recipe-body">
       <div class="recipe-name">${esc(r.name)}</div>
       <div class="recipe-meta">
         <span class="badge badge-olive">${esc(r.category||'')}</span>
-        ${r.time?`<span>${esc(r.time)}</span>`:''}
+        ${r.time&&r.time!=='0 min'?`<span>${esc(r.time)}</span>`:''}
         <span class="${r.public?'badge badge-public':'badge badge-private'}">${r.public?'🌍 Pública':'🔒 Privada'}</span>
       </div>
       <div class="recipe-actions">${actions}</div>
     </div></div>`;
 }
-window.copyRecipe = async function(id){
-  const r = pubRecipes.find(x=>x.id===id);
-  if(!r) return;
-  const copy = {...r, uid:currentUser.uid, public:false, copiedFrom:id, createdAt:serverTimestamp()};
-  delete copy.id;
-  await addDoc(collection(db,'recipes'), copy);
-  await loadRecipes(); renderRecipes();
+window.copyRecipe=async function(id){
+  const r=pubRecipes.find(x=>x.id===id);if(!r)return;
+  const copy={...r,uid:currentUser.uid,public:false,copiedFrom:id,createdAt:serverTimestamp()};delete copy.id;
+  await addDoc(collection(db,'recipes'),copy);await loadRecipes();renderRecipes();
 }
 
 // ---- PHOTO ----
-window.switchPhotoTab = function(mode,btn){
+window.switchPhotoTab=function(mode,btn){
   photoMode=mode;
   document.querySelectorAll('.photo-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('photo-upload-area').style.display = mode==='upload'?'block':'none';
-  document.getElementById('photo-url-area').style.display   = mode==='url'   ?'block':'none';
+  document.getElementById('photo-upload-area').style.display=mode==='upload'?'block':'none';
+  document.getElementById('photo-url-area').style.display=mode==='url'?'block':'none';
 }
-window.handlePhotoFile = function(input){
-  const file=input.files[0]; if(!file) return;
+window.handlePhotoFile=function(input){
+  const file=input.files[0];if(!file)return;
   const reader=new FileReader();
-  reader.onload=e=>{
-    photoData={type:'file',file,dataUrl:e.target.result};
-    document.getElementById('photo-preview').innerHTML=`<img src="${e.target.result}" alt="preview">`;
-  };
+  reader.onload=e=>{photoData={type:'file',file,dataUrl:e.target.result};document.getElementById('photo-preview').innerHTML=`<img src="${e.target.result}" alt="preview">`;};
   reader.readAsDataURL(file);
 }
-window.previewUrl = function(url){
-  photoData = url ? {type:'url',url} : null;
-  const p = document.getElementById('photo-url-preview');
-  p.innerHTML = url
-    ? `<img src="${esc(url)}" alt="preview" onerror="this.parentElement.innerHTML='<div class=photo-placeholder><span>❌</span><span>URL no válida</span></div>'">`
-    : `<div class="photo-placeholder"><span>🖼️</span><span>Introduce una URL</span></div>`;
+window.previewUrl=function(url){
+  photoData=url?{type:'url',url}:null;
+  const p=document.getElementById('photo-url-preview');
+  p.innerHTML=url?`<img src="${esc(url)}" alt="preview" onerror="this.parentElement.innerHTML='<div class=photo-placeholder><span>❌</span><span>URL no válida</span></div>'">`:`<div class="photo-placeholder"><span>🖼️</span><span>Introduce una URL</span></div>`;
 }
 async function resolvePhoto(){
   if(!photoData) return null;
   if(photoData.type==='url') return photoData.url;
   try{
-    const r = ref(storage,`recipes/${currentUser.uid}/${Date.now()}_${photoData.file.name}`);
-    await uploadBytes(r, photoData.file);
-    return await getDownloadURL(r);
-  } catch(e){ return photoData.dataUrl; }
+    const r=ref(storage,`recipes/${currentUser.uid}/${Date.now()}_${photoData.file.name}`);
+    await uploadBytes(r,photoData.file);return await getDownloadURL(r);
+  }catch(e){return photoData.dataUrl;}
 }
 
 // ---- RECIPE MODAL ----
-window.openRecipeModal = function(id){
-  editingId=id||null; photoData=null;
-  document.getElementById('modal-title').textContent = id ? 'Editar Receta' : 'Nueva Receta';
+window.openRecipeModal=function(id){
+  editingId=id||null;photoData=null;
+  document.getElementById('modal-title').textContent=id?'Editar Receta':'Nueva Receta';
   document.getElementById('ingredients-container').innerHTML='';
   document.getElementById('photo-preview').innerHTML=`<div class="photo-placeholder"><span>📷</span><span>Toca para añadir foto</span></div>`;
   document.getElementById('photo-url-preview').innerHTML=`<div class="photo-placeholder"><span>🖼️</span><span>Introduce una URL</span></div>`;
@@ -545,7 +597,7 @@ window.openRecipeModal = function(id){
     document.getElementById('r-time').value=r.time||'';
     document.getElementById('r-notes').value=r.notes||'';
     document.getElementById('r-public').checked=r.public||false;
-    if(r.photo){ photoData={type:'url',url:r.photo}; document.getElementById('photo-preview').innerHTML=`<img src="${esc(r.photo)}" alt="foto">`; }
+    if(r.photo){photoData={type:'url',url:r.photo};document.getElementById('photo-preview').innerHTML=`<img src="${esc(r.photo)}" alt="foto">`;}
     (r.ingredients||[]).forEach(i=>addIngredient(i.name,i.amount,i.unit));
   } else {
     document.getElementById('r-name').value='';
@@ -558,16 +610,16 @@ window.openRecipeModal = function(id){
   document.getElementById('recipe-modal').classList.add('open');
   setTimeout(()=>document.getElementById('r-name').focus(),100);
 }
-window.editRecipe = id => openRecipeModal(id);
-window.deleteRecipe = async function(id){
-  if(!confirm('¿Eliminar esta receta? También se quitará del menú semanal.')) return;
+window.editRecipe=id=>openRecipeModal(id);
+window.deleteRecipe=async function(id){
+  if(!confirm('¿Eliminar esta receta? También se quitará del menú semanal.'))return;
   await deleteDoc(doc(db,'recipes',id));
-  myRecipes = myRecipes.filter(r=>r.id!==id);
+  myRecipes=myRecipes.filter(r=>r.id!==id);
   Object.keys(plan).forEach(day=>Object.keys(plan[day]).forEach(slot=>{plan[day][slot]=(plan[day][slot]||[]).filter(r=>r!==id)}));
-  await saveUserData(); renderRecipes();
+  await saveUserData();renderRecipes();
 }
-window.addIngredient = function(name='',amount='',unit='g'){
-  const div=document.createElement('div'); div.className='ingredient-row';
+window.addIngredient=function(name='',amount='',unit='g'){
+  const div=document.createElement('div');div.className='ingredient-row';
   div.innerHTML=`
     <input type="text" placeholder="Ingrediente" value="${esc(name)}" style="flex:2">
     <input type="number" placeholder="Cant." value="${amount}" min="0" step="any" style="flex:1;min-width:60px">
@@ -575,24 +627,24 @@ window.addIngredient = function(name='',amount='',unit='g'){
     <button class="btn-icon" onclick="this.closest('.ingredient-row').remove()" title="Quitar">✕</button>`;
   document.getElementById('ingredients-container').appendChild(div);
 }
-window.saveRecipe = async function(){
+window.saveRecipe=async function(){
   const name=document.getElementById('r-name').value.trim();
   if(!name){alert('Escribe el nombre de la receta');return}
-  const btn=document.getElementById('save-btn'); btn.disabled=true; btn.textContent='Guardando...';
+  const btn=document.getElementById('save-btn');btn.disabled=true;btn.textContent='Guardando...';
   const ingredients=[];
   document.querySelectorAll('#ingredients-container .ingredient-row').forEach(row=>{
-    const inputs=row.querySelectorAll('input'); const sel=row.querySelector('select');
-    const n=inputs[0].value.trim(); if(n) ingredients.push({name:n,amount:parseFloat(inputs[1].value)||0,unit:sel.value});
+    const inputs=row.querySelectorAll('input');const sel=row.querySelector('select');
+    const n=inputs[0].value.trim();if(n)ingredients.push({name:n,amount:parseFloat(inputs[1].value)||0,unit:sel.value});
   });
-  const photo = await resolvePhoto();
-  const data = {uid:currentUser.uid,name,category:document.getElementById('r-cat').value,time:document.getElementById('r-time').value.trim(),notes:document.getElementById('r-notes').value.trim(),public:document.getElementById('r-public').checked,ingredients,photo:photo||null,updatedAt:serverTimestamp()};
-  if(editingId){ await updateDoc(doc(db,'recipes',editingId),data); }
-  else { data.createdAt=serverTimestamp(); await addDoc(collection(db,'recipes'),data); }
+  const photo=await resolvePhoto();
+  const data={uid:currentUser.uid,name,category:document.getElementById('r-cat').value,time:document.getElementById('r-time').value.trim(),notes:document.getElementById('r-notes').value.trim(),public:document.getElementById('r-public').checked,ingredients,photo:photo||null,updatedAt:serverTimestamp()};
+  if(editingId){await updateDoc(doc(db,'recipes',editingId),data);}
+  else{data.createdAt=serverTimestamp();await addDoc(collection(db,'recipes'),data);}
   await loadRecipes();
-  btn.disabled=false; btn.textContent='Guardar receta';
-  closeModal(); renderRecipes();
+  btn.disabled=false;btn.textContent='Guardar receta';
+  closeModal();renderRecipes();
 }
-window.closeModal = function(){ document.getElementById('recipe-modal').classList.remove('open'); editingId=null; photoData=null; }
+window.closeModal=function(){document.getElementById('recipe-modal').classList.remove('open');editingId=null;photoData=null;}
 
 // ---- PLANNER ----
 function renderPlanner(){
@@ -613,8 +665,8 @@ function renderPlanner(){
     </div>`;
   }).join('');
 }
-window.changePersons = async function(d){ persons=Math.max(1,Math.min(20,persons+d)); document.getElementById('persons-count').textContent=persons; await saveUserData(); }
-window.openMealModal = function(day,slot){
+window.changePersons=async function(d){persons=Math.max(1,Math.min(20,persons+d));document.getElementById('persons-count').textContent=persons;await saveUserData();}
+window.openMealModal=function(day,slot){
   const all=[...myRecipes,...pubRecipes];
   if(!all.length){alert('Primero añade recetas');return}
   document.getElementById('m-day').value=day;
@@ -622,34 +674,34 @@ window.openMealModal = function(day,slot){
   document.getElementById('m-recipe').innerHTML=all.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join('');
   document.getElementById('meal-modal').classList.add('open');
 }
-window.closeMealModal = () => document.getElementById('meal-modal').classList.remove('open');
-window.saveMeal = async function(){
-  const day=document.getElementById('m-day').value, slot=document.getElementById('m-slot-sel').value, rid=document.getElementById('m-recipe').value;
-  if(!plan[day]) plan[day]={}; if(!plan[day][slot]) plan[day][slot]=[];
-  plan[day][slot].push(rid); await saveUserData(); closeMealModal(); renderPlanner();
+window.closeMealModal=()=>document.getElementById('meal-modal').classList.remove('open');
+window.saveMeal=async function(){
+  const day=document.getElementById('m-day').value,slot=document.getElementById('m-slot-sel').value,rid=document.getElementById('m-recipe').value;
+  if(!plan[day])plan[day]={};if(!plan[day][slot])plan[day][slot]=[];
+  plan[day][slot].push(rid);await saveUserData();closeMealModal();renderPlanner();
 }
-window.removeMeal = async function(day,slot,rid){
+window.removeMeal=async function(day,slot,rid){
   if(plan[day]&&plan[day][slot]){const i=plan[day][slot].indexOf(rid);if(i>-1)plan[day][slot].splice(i,1);}
-  await saveUserData(); renderPlanner();
+  await saveUserData();renderPlanner();
 }
 
 // ---- SHOPPING ----
-window.generateShopping = async function(){
-  const allR=[...myRecipes,...pubRecipes]; const totals={};
+window.generateShopping=async function(){
+  const allR=[...myRecipes,...pubRecipes];const totals={};
   Object.values(plan).forEach(dp=>Object.values(dp).forEach(meals=>(meals||[]).forEach(rid=>{
-    const r=allR.find(x=>x.id===rid); if(!r) return;
+    const r=allR.find(x=>x.id===rid);if(!r)return;
     (r.ingredients||[]).forEach(ing=>{const k=ing.name.toLowerCase()+'__'+ing.unit;if(!totals[k])totals[k]={name:ing.name,amount:0,unit:ing.unit};totals[k].amount+=ing.amount*persons;});
   })));
-  const prev=shopping; shopping={};
+  const prev=shopping;shopping={};
   Object.values(totals).forEach(item=>{const k=item.name.toLowerCase()+'__'+item.unit;shopping[k]={...item,checked:prev[k]?prev[k].checked:false};});
-  await saveUserData(); renderShopping();
+  await saveUserData();renderShopping();
 }
 function renderShopping(){
   const items=Object.values(shopping);
   document.getElementById('shopping-persons').textContent=items.length?`Lista calculada para ${persons} persona${persons!==1?'s':''}`:'' ;
   if(!items.length){document.getElementById('shopping-list').innerHTML=`<div class="empty"><div class="empty-icon">🛒</div><p>Planifica tu semana<br>y pulsa "↻ Actualizar".</p></div>`;return;}
   items.sort((a,b)=>a.checked-b.checked||a.name.localeCompare(b.name,'es'));
-  const unc=items.filter(i=>!i.checked), chk=items.filter(i=>i.checked);
+  const unc=items.filter(i=>!i.checked),chk=items.filter(i=>i.checked);
   document.getElementById('shopping-list').innerHTML=
     (unc.length?`<div class="shop-category"><div class="shop-category-title">Por comprar (${unc.length})</div>${unc.map(shopItem).join('')}</div>`:'')+
     (chk.length?`<div class="shop-category"><div class="shop-category-title">Ya en el carro (${chk.length})</div>${chk.map(shopItem).join('')}</div>`:'');
@@ -658,8 +710,8 @@ function shopItem(i){
   const k=i.name.toLowerCase()+'__'+i.unit;
   return `<div class="shop-item"><input type="checkbox" ${i.checked?'checked':''} onchange="toggleItem('${esc(k)}',this.checked)"><span class="shop-item-name${i.checked?' checked':''}">${esc(i.name)}</span><span class="shop-item-amount">${i.unit==='al gusto'?'al gusto':fmtAmt(i.amount)+' '+i.unit}</span></div>`;
 }
-window.toggleItem = async function(k,v){ if(shopping[k])shopping[k].checked=v; await saveUserData(); renderShopping(); }
-window.clearChecked = async function(){ Object.keys(shopping).forEach(k=>{if(shopping[k].checked)delete shopping[k]}); await saveUserData(); renderShopping(); }
+window.toggleItem=async function(k,v){if(shopping[k])shopping[k].checked=v;await saveUserData();renderShopping();}
+window.clearChecked=async function(){Object.keys(shopping).forEach(k=>{if(shopping[k].checked)delete shopping[k]});await saveUserData();renderShopping();}
 </script>
 </body>
 </html>
