@@ -54,6 +54,7 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;transition:all .2s}
 .btn-primary{background:var(--olive);color:#fff}.btn-primary:hover{opacity:.88}
 .btn-sage{background:var(--sage);color:#fff}.btn-sage:hover{opacity:.88}
+.btn-rust{background:var(--rust);color:#fff}.btn-rust:hover{opacity:.88}
 .btn-outline{background:none;border:0.5px solid var(--border);color:var(--text)}.btn-outline:hover{border-color:var(--sage);color:var(--sage)}
 .btn-full{width:100%;justify-content:center}
 .btn-sm{padding:.35rem .75rem;font-size:.78rem}
@@ -80,29 +81,30 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 .ingredient-row input[type=number]{flex:1;min-width:55px}
 .ingredient-row select{flex:1;min-width:55px}
 
+/* PLANNER */
 .planner-toolbar{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
-.view-tabs{display:flex;background:var(--warm);border-radius:8px;padding:3px}
+.view-tabs{display:flex;background:var(--warm);border-radius:8px;padding:3px;gap:0}
 .view-tab{padding:.35rem .85rem;border-radius:6px;font-size:.8rem;cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .2s}
 .view-tab.active{background:var(--white);color:var(--olive);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
 .planner-nav{display:flex;align-items:center;gap:.5rem;margin-left:auto}
 .planner-nav-btn{background:none;border:0.5px solid var(--border);border-radius:6px;padding:.3rem .65rem;cursor:pointer;font-size:.9rem;color:var(--text);transition:all .2s}
 .planner-nav-btn:hover{border-color:var(--sage);color:var(--sage)}
-.planner-period-label{font-size:.85rem;font-weight:500;color:var(--olive);min-width:160px;text-align:center}
+.planner-period-label{font-size:.88rem;font-weight:500;color:var(--olive);min-width:140px;text-align:center}
 
-.persons-bar{display:flex;align-items:center;gap:.75rem;background:var(--warm);border:0.5px solid var(--border);border-radius:10px;padding:.6rem 1rem;margin-bottom:1rem;flex-wrap:wrap}
+.persons-bar{display:flex;align-items:center;gap:.75rem;background:var(--warm);border:0.5px solid var(--border);border-radius:10px;padding:.6rem 1rem;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
 .persons-label{font-size:.82rem;color:var(--muted);font-weight:500;flex:1;min-width:120px}
 .persons-control{display:flex;align-items:center;gap:.5rem}
 .persons-btn{width:28px;height:28px;border-radius:50%;background:var(--olive);color:#fff;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;font-weight:500}
 .persons-btn:hover{opacity:.85}
 .persons-count{font-size:1.1rem;font-weight:500;min-width:20px;text-align:center;color:var(--olive)}
 
+/* WEEKLY VIEW */
 .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem}
 @media(max-width:750px){.week-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.week-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
 .day-cell{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:.6rem .5rem;transition:border-color .2s}
-.day-cell.today{border-color:var(--olive);border-width:1.5px}
-.day-name{font-size:.68rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;text-align:center}
-.day-name.today{color:var(--olive);font-weight:700}
+.day-cell:hover{border-color:var(--sage)}
+.day-name{font-size:.68rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;text-align:center}
 .meal-slot{margin-bottom:.28rem}
 .meal-label{font-size:.58rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.12rem}
 .meal-item{background:var(--warm);border-radius:5px;padding:.2rem .32rem;font-size:.66rem;color:var(--text);display:flex;align-items:center;justify-content:space-between;margin-bottom:.1rem;border:0.5px solid var(--border)}
@@ -112,21 +114,23 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 .add-meal-btn{background:none;border:0.5px dashed var(--border);border-radius:5px;padding:.16rem .28rem;font-size:.63rem;color:var(--muted);cursor:pointer;width:100%;text-align:center;transition:all .2s;margin-top:.1rem}
 .add-meal-btn:hover{border-color:var(--sage);color:var(--sage)}
 
+/* MONTHLY VIEW */
 .month-slot-tabs{display:flex;gap:.4rem;margin-bottom:1rem;flex-wrap:wrap}
 .month-slot-tab{padding:.3rem .8rem;border-radius:20px;font-size:.78rem;cursor:pointer;border:0.5px solid var(--border);background:none;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all .2s}
 .month-slot-tab:hover{border-color:var(--sage);color:var(--sage)}
 .month-slot-tab.active{background:var(--sage);color:#fff;border-color:var(--sage)}
 .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem}
 .month-day-header{font-size:.68rem;font-weight:500;color:var(--muted);text-align:center;padding:.3rem 0;text-transform:uppercase}
-.month-cell{background:var(--white);border:0.5px solid var(--border);border-radius:8px;padding:.4rem;min-height:70px;transition:all .2s}
-.month-cell.empty-day{background:transparent;border-color:transparent}
+.month-cell{background:var(--white);border:0.5px solid var(--border);border-radius:8px;padding:.4rem;min-height:70px;transition:all .2s;cursor:pointer}
+.month-cell:hover{border-color:var(--sage)}
+.month-cell.empty-day{background:transparent;border-color:transparent;cursor:default}
 .month-cell.today{border-color:var(--olive);border-width:1.5px}
 .month-day-num{font-size:.7rem;font-weight:500;color:var(--muted);margin-bottom:.25rem}
-.month-day-num.today{color:var(--olive);font-weight:700}
-.month-meal-item{background:var(--warm);border-radius:4px;padding:.15rem .3rem;font-size:.62rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:.1rem;border:0.5px solid var(--border)}
+.month-meal-item{background:var(--warm);border-radius:4px;padding:.15rem .3rem;font-size:.62rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:.1rem;border:0.5px solid var(--border);cursor:pointer}
 .month-add-btn{font-size:.62rem;color:var(--muted);cursor:pointer;text-align:center;padding:.1rem;border:0.5px dashed var(--border);border-radius:4px;margin-top:.1rem;transition:all .2s}
 .month-add-btn:hover{border-color:var(--sage);color:var(--sage)}
 
+/* SHOPPING */
 .shop-category{margin-bottom:1.25rem}
 .shop-category-title{font-size:.75rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;padding-bottom:.35rem;border-bottom:0.5px solid var(--border)}
 .shop-item{display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:0.5px solid var(--border)}
@@ -136,11 +140,12 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 .shop-item-name.checked{text-decoration:line-through;color:var(--muted)}
 .shop-item-amount{font-size:.82rem;color:var(--muted);font-weight:500;white-space:nowrap}
 
+/* MODALS */
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
 .modal-backdrop.open{display:flex}
 .modal{background:var(--white);border-radius:14px;padding:1.5rem;width:100%;max-width:500px;box-shadow:0 8px 32px rgba(0,0,0,0.2);margin:auto}
 .modal-title{font-size:1.15rem;margin-bottom:1.25rem;color:var(--olive)}
-.modal-footer{display:flex;gap:.5rem;justify-content:flex-end;margin-top:1.25rem;padding-top:.75rem;border-top:0.5px solid var(--border);flex-wrap:wrap}
+.modal-footer{display:flex;gap:.5rem;justify-content:flex-end;margin-top:1.25rem;padding-top:.75rem;border-top:0.5px solid var(--border)}
 
 .photo-tabs{display:flex;background:var(--warm);border-radius:8px;padding:3px;margin-bottom:.75rem}
 .photo-tab{flex:1;padding:.4rem;text-align:center;font-size:.8rem;cursor:pointer;border-radius:6px;border:none;background:none;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .2s}
@@ -176,6 +181,7 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 .public-section{margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid var(--border)}
 .public-section-title{font-size:1.1rem;color:var(--sage);font-family:'Playfair Display',serif;margin-bottom:1rem}
 
+/* DETAIL */
 .detail-hero{width:100%;height:200px;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:3.5rem;border-radius:10px;overflow:hidden;margin-bottom:1.25rem}
 .detail-hero img{width:100%;height:100%;object-fit:cover}
 .detail-title{font-size:1.4rem;color:var(--olive);margin-bottom:.5rem}
@@ -188,23 +194,21 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
 .detail-notes{background:var(--warm);border-radius:8px;padding:.85rem;font-size:.88rem;line-height:1.6;white-space:pre-wrap;margin-top:.5rem}
 .detail-footer{display:flex;gap:.5rem;margin-top:1.25rem;padding-top:.75rem;border-top:0.5px solid var(--border);flex-wrap:wrap}
 
-/* SMART RECIPE */
-.smart-mode-tabs{display:flex;background:var(--warm);border-radius:8px;padding:3px;margin-bottom:1rem}
-.smart-mode-tab{flex:1;padding:.45rem;text-align:center;font-size:.82rem;cursor:pointer;border-radius:6px;border:none;background:none;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .2s}
-.smart-mode-tab.active{background:var(--white);color:var(--olive);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
-.smart-result{background:var(--warm);border-radius:10px;padding:1rem;margin-top:1rem;font-size:.88rem;line-height:1.6;border:0.5px solid var(--border)}
-.smart-ing-tag{display:inline-block;background:var(--white);border:0.5px solid var(--border);border-radius:20px;padding:.2rem .6rem;font-size:.78rem;margin:.2rem;cursor:pointer;transition:all .2s}
-.smart-ing-tag:hover{border-color:var(--rust);color:var(--rust)}
-.smart-ing-tag.selected{background:var(--olive);color:#fff;border-color:var(--olive)}
-.smart-info{background:#EDF4F0;border:0.5px solid #B8D4C4;border-radius:8px;padding:.65rem .85rem;font-size:.82rem;color:#2C5F3F;margin-bottom:.75rem}
+/* AI RECIPE */
+.ai-mode-tabs{display:flex;background:var(--warm);border-radius:8px;padding:3px;margin-bottom:1rem}
+.ai-mode-tab{flex:1;padding:.45rem;text-align:center;font-size:.82rem;cursor:pointer;border-radius:6px;border:none;background:none;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .2s}
+.ai-mode-tab.active{background:var(--white);color:var(--olive);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.ai-generating{text-align:center;padding:1.5rem;color:var(--muted)}
+.ai-spinner{display:inline-block;width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--olive);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:.75rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-result{background:var(--warm);border-radius:10px;padding:1rem;margin-top:1rem;font-size:.88rem;line-height:1.6;border:0.5px solid var(--border)}
 
 /* RANDOMIZER */
 .slot-check-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1rem}
 .slot-check{display:flex;align-items:center;gap:.5rem;background:var(--warm);border-radius:8px;padding:.5rem .75rem;cursor:pointer;border:0.5px solid var(--border);transition:all .2s}
 .slot-check:hover{border-color:var(--sage)}
 .slot-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--olive);cursor:pointer}
-.slot-check-label{font-size:.85rem}
-.slot-check-sub{font-size:.72rem;color:var(--muted);display:block}
+.slot-check-label{font-size:.88rem}
 </style>
 </head>
 <body>
@@ -258,12 +262,13 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
   </nav>
 
   <div class="main">
+
     <!-- RECETAS -->
     <div id="s-recipes" class="section active">
       <div class="section-header">
         <h2 class="section-title">Mis Recetas</h2>
         <div class="flex gap-sm">
-          <button class="btn btn-sage btn-sm" onclick="openSmartModal()">&#10024; Receta rapida</button>
+          <button class="btn btn-sage btn-sm" onclick="openAIModal()">&#10024; Receta rapida IA</button>
           <button class="btn btn-primary btn-sm" onclick="openRecipeModal()">+ Nueva receta</button>
         </div>
       </div>
@@ -288,7 +293,7 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
     <div id="s-planner" class="section">
       <div class="section-header">
         <h2 class="section-title">Planificador</h2>
-        <button class="btn btn-sage btn-sm" onclick="openRandModal()">&#127922; Aleatorizar</button>
+        <button class="btn btn-sage btn-sm" onclick="openRandomizerModal()">&#127922; Aleatorizar menu</button>
       </div>
       <div class="planner-toolbar">
         <div class="view-tabs">
@@ -310,7 +315,11 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
           <button class="persons-btn" onclick="changePersons(1)">+</button>
         </div>
       </div>
-      <div id="planner-week"><div class="week-grid" id="week-grid"></div></div>
+      <!-- weekly -->
+      <div id="planner-week">
+        <div class="week-grid" id="week-grid"></div>
+      </div>
+      <!-- monthly -->
       <div id="planner-month" style="display:none">
         <div class="month-slot-tabs" id="month-slot-tabs"></div>
         <div class="month-grid" id="month-grid"></div>
@@ -354,55 +363,6 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
       <div class="detail-notes" id="detail-notes"></div>
     </div>
     <div class="detail-footer" id="detail-footer"></div>
-  </div>
-</div>
-
-<!-- MODAL RECETA RAPIDA -->
-<div class="modal-backdrop" id="smart-modal" onclick="if(event.target===this)closeSmartModal()">
-  <div class="modal" style="max-width:520px">
-    <h3 class="modal-title">&#10024; Receta rapida</h3>
-    <div class="smart-info">Escribe el nombre del plato y la app sugerira ingredientes tipicos que puedes ajustar antes de guardar.</div>
-    <div class="smart-mode-tabs">
-      <button class="smart-mode-tab active" onclick="switchSmartMode('name',this)">Por nombre de plato</button>
-      <button class="smart-mode-tab" onclick="switchSmartMode('pantry',this)">Con lo que tengo en casa</button>
-    </div>
-    <div id="smart-name-mode">
-      <div class="form-group"><label>Nombre del plato</label><input type="text" id="smart-title" placeholder="Ej: Pollo al limon, Ensalada cesar..." oninput="smartSuggest(this.value)"></div>
-      <div class="form-group">
-        <label>Categoria</label>
-        <select id="smart-cat" onchange="smartSuggest(document.getElementById('smart-title').value)">
-          <option value="Desayunos">Desayunos</option>
-          <option value="Primeros">Primeros</option>
-          <option value="Segundos">Segundos</option>
-          <option value="Plato unico" selected>Plato unico</option>
-          <option value="Snacks">Snacks</option>
-          <option value="Postres">Postres</option>
-        </select>
-      </div>
-    </div>
-    <div id="smart-pantry-mode" style="display:none">
-      <div class="form-group"><label>Nombre del plato</label><input type="text" id="smart-title2" placeholder="Ej: Revuelto de lo que tengo"></div>
-      <div class="form-group"><label>Ingredientes que tienes (selecciona o escribe)</label>
-        <div id="pantry-tags" style="margin-bottom:.5rem"></div>
-        <input type="text" id="pantry-custom" placeholder="Escribe y pulsa Enter para anadir..." onkeydown="addPantryTag(event)">
-      </div>
-      <div class="form-group">
-        <label>Categoria</label>
-        <select id="smart-cat2">
-          <option value="Desayunos">Desayunos</option>
-          <option value="Primeros">Primeros</option>
-          <option value="Segundos">Segundos</option>
-          <option value="Plato unico" selected>Plato unico</option>
-          <option value="Snacks">Snacks</option>
-          <option value="Postres">Postres</option>
-        </select>
-      </div>
-    </div>
-    <div id="smart-result-area"></div>
-    <div class="modal-footer" id="smart-footer">
-      <button class="btn btn-outline" onclick="closeSmartModal()">Cancelar</button>
-      <button class="btn btn-sage" onclick="applySmartRecipe()">Usar esta receta</button>
-    </div>
   </div>
 </div>
 
@@ -461,23 +421,71 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
   </div>
 </div>
 
+<!-- MODAL IA RECETA RAPIDA -->
+<div class="modal-backdrop" id="ai-modal" onclick="if(event.target===this)closeAIModal()">
+  <div class="modal" style="max-width:520px">
+    <h3 class="modal-title">&#10024; Receta rapida con IA</h3>
+    <div class="ai-mode-tabs">
+      <button class="ai-mode-tab active" onclick="switchAIMode('title',this)">Solo titulo</button>
+      <button class="ai-mode-tab" onclick="switchAIMode('ingredients',this)">Titulo + ingredientes</button>
+    </div>
+    <div id="ai-title-mode">
+      <div class="form-group"><label>Nombre de la receta</label><input type="text" id="ai-title" placeholder="Ej: Pollo al limon con patatas"></div>
+      <div class="form-group">
+        <label>Categoria</label>
+        <select id="ai-cat">
+          <option value="Desayunos">Desayunos</option>
+          <option value="Primeros">Primeros</option>
+          <option value="Segundos">Segundos</option>
+          <option value="Plato unico" selected>Plato unico</option>
+          <option value="Snacks">Snacks</option>
+          <option value="Postres">Postres</option>
+        </select>
+      </div>
+    </div>
+    <div id="ai-ing-mode" style="display:none">
+      <div class="form-group"><label>Nombre de la receta</label><input type="text" id="ai-title2" placeholder="Ej: Revuelto con lo que tengo"></div>
+      <div class="form-group"><label>Ingredientes que tienes en casa</label><textarea id="ai-ings-input" rows="3" placeholder="Ej: pollo, arroz, cebolla, tomate, ajo..."></textarea></div>
+      <div class="form-group">
+        <label>Categoria</label>
+        <select id="ai-cat2">
+          <option value="Desayunos">Desayunos</option>
+          <option value="Primeros">Primeros</option>
+          <option value="Segundos">Segundos</option>
+          <option value="Plato unico" selected>Plato unico</option>
+          <option value="Snacks">Snacks</option>
+          <option value="Postres">Postres</option>
+        </select>
+      </div>
+    </div>
+    <div id="ai-status" style="display:none" class="ai-generating">
+      <div class="ai-spinner"></div>
+      <div>Generando receta con IA...</div>
+    </div>
+    <div id="ai-result-area" style="display:none"></div>
+    <div class="modal-footer" id="ai-footer">
+      <button class="btn btn-outline" onclick="closeAIModal()">Cancelar</button>
+      <button class="btn btn-sage" id="ai-gen-btn" onclick="generateAIRecipe()">&#10024; Generar receta</button>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL ALEATORIZAR -->
 <div class="modal-backdrop" id="rand-modal" onclick="if(event.target===this)closeRandModal()">
-  <div class="modal" style="max-width:420px">
+  <div class="modal" style="max-width:400px">
     <h3 class="modal-title">&#127922; Aleatorizar menu semanal</h3>
-    <p class="text-muted" style="margin-bottom:1rem;font-size:.85rem">Cada franja se rellena con recetas de su categoria correspondiente.</p>
+    <p class="text-muted" style="margin-bottom:1rem">Selecciona las franjas que quieres rellenar automaticamente con tus recetas.</p>
     <div class="slot-check-grid">
-      <label class="slot-check"><input type="checkbox" id="rand-desayuno" checked><div><span class="slot-check-label">Desayuno</span><span class="slot-check-sub">Recetas de Desayunos</span></div></label>
-      <label class="slot-check"><input type="checkbox" id="rand-snack_man"><div><span class="slot-check-label">Snack manana</span><span class="slot-check-sub">Recetas de Snacks</span></div></label>
-      <label class="slot-check"><input type="checkbox" id="rand-comida" checked><div><span class="slot-check-label">Comida</span><span class="slot-check-sub">Primeros, Segundos, Plato unico</span></div></label>
-      <label class="slot-check"><input type="checkbox" id="rand-snack_tar"><div><span class="slot-check-label">Snack tarde</span><span class="slot-check-sub">Recetas de Snacks</span></div></label>
-      <label class="slot-check"><input type="checkbox" id="rand-cena" checked><div><span class="slot-check-label">Cena</span><span class="slot-check-sub">Primeros, Segundos, Plato unico</span></div></label>
+      <label class="slot-check"><input type="checkbox" id="rand-desayuno" checked><span class="slot-check-label">&#9728; Desayuno</span></label>
+      <label class="slot-check"><input type="checkbox" id="rand-snack_man"><span class="slot-check-label">Snack manana</span></label>
+      <label class="slot-check"><input type="checkbox" id="rand-comida" checked><span class="slot-check-label">&#127371; Comida</span></label>
+      <label class="slot-check"><input type="checkbox" id="rand-snack_tar"><span class="slot-check-label">Snack tarde</span></label>
+      <label class="slot-check"><input type="checkbox" id="rand-cena" checked><span class="slot-check-label">&#127769; Cena</span></label>
     </div>
     <div class="toggle-row" style="margin-bottom:.75rem">
-      <span class="toggle-label" style="font-size:.85rem">Sobreescribir franjas que ya tienen receta</span>
+      <span class="toggle-label">Sobreescribir franjas que ya tienen receta</span>
       <label class="toggle"><input type="checkbox" id="rand-overwrite"><span class="toggle-slider"></span></label>
     </div>
-    <div id="rand-warning" style="display:none;background:#FEF0EE;border:0.5px solid #F5C2BA;border-radius:8px;padding:.6rem .85rem;font-size:.82rem;color:#C0392B;margin-bottom:.75rem"></div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeRandModal()">Cancelar</button>
       <button class="btn btn-sage" onclick="applyRandomizer()">&#127922; Aleatorizar</button>
@@ -532,35 +540,38 @@ const DAYS_ES=['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo
 const DAY_HEADERS=['Lun','Mar','Mie','Jue','Vie','Sab','Dom'];
 const MONTHS_ES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const SLOTS=['desayuno','snack_man','comida','snack_tar','cena'];
-const SLOT_LABELS={desayuno:'Desayuno',snack_man:'Snack M.',comida:'Comida',snack_tar:'Snack T.',cena:'Cena'};
+const SLOT_LABELS={desayuno:'Desayuno',snack_man:'Snack man.',comida:'Comida',snack_tar:'Snack tar.',cena:'Cena'};
 const SLOT_LABELS_FULL={desayuno:'Desayuno',snack_man:'Snack manana',comida:'Comida',snack_tar:'Snack tarde',cena:'Cena'};
 const UNITS=['g','kg','ml','l','ud','cdta','cda','taza','al gusto'];
 
-// Categorias validas por franja para el aleatorizador
-const SLOT_CATEGORIES={
-  desayuno:['Desayunos'],
-  snack_man:['Snacks'],
-  comida:['Primeros','Segundos','Plato unico','Otros','Entrantes'],
-  snack_tar:['Snacks'],
-  cena:['Primeros','Segundos','Plato unico','Otros']
-};
-
 let currentUser=null,myRecipes=[],pubRecipes=[],plan={},persons=2,shopping={};
 let editingId=null,photoData=null,currentFilter='all';
-let detailRecipe=null,detailPersons=1;
+let detailRecipe=null,detailPersons=1,detailIsPublic=false;
 let plannerView='week';
 let currentWeekStart=getThisMonday();
 let currentMonth=new Date();
 let currentMonthSlot='comida';
-let smartMode='name';
-let smartPantryTags=[];
-let pendingSmartRecipe=null;
+let aiMode='title',aiGeneratedRecipe=null;
 
 // ---- DATE UTILS ----
-function getThisMonday(){const d=new Date();const day=d.getDay();const diff=day===0?-6:1-day;d.setDate(d.getDate()+diff);d.setHours(0,0,0,0);return d;}
+function getThisMonday(){
+  const d=new Date();
+  const day=d.getDay();
+  const diff=day===0?-6:1-day;
+  d.setDate(d.getDate()+diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
 function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function weekDays(monday){return Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(d.getDate()+i);return d});}
-function weekLabel(monday){const days=weekDays(monday);const s=days[0],e=days[6];if(s.getMonth()===e.getMonth())return `${s.getDate()} - ${e.getDate()} ${MONTHS_ES[s.getMonth()]} ${s.getFullYear()}`;return `${s.getDate()} ${MONTHS_ES[s.getMonth()].slice(0,3)} - ${e.getDate()} ${MONTHS_ES[e.getMonth()].slice(0,3)} ${e.getFullYear()}`;}
+function weekDays(monday){
+  return Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(d.getDate()+i);return d});
+}
+function weekLabel(monday){
+  const days=weekDays(monday);
+  const s=days[0],e=days[6];
+  if(s.getMonth()===e.getMonth()) return `${s.getDate()} - ${e.getDate()} ${MONTHS_ES[s.getMonth()]} ${s.getFullYear()}`;
+  return `${s.getDate()} ${MONTHS_ES[s.getMonth()].slice(0,3)} - ${e.getDate()} ${MONTHS_ES[e.getMonth()].slice(0,3)} ${e.getFullYear()}`;
+}
 function monthLabel(d){return `${MONTHS_ES[d.getMonth()]} ${d.getFullYear()}`}
 
 // ---- UTILS ----
@@ -568,7 +579,7 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function fmtAmt(n){if(!n||n===0)return '0';if(n===Math.round(n))return n.toString();return parseFloat(n.toFixed(1)).toString()}
 function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function showAuthError(msg){const el=document.getElementById('auth-error');el.textContent=msg;el.classList.add('show')}
-function friendlyError(code){return({'auth/user-not-found':'No existe cuenta con ese email.','auth/wrong-password':'Contrasena incorrecta.','auth/email-already-in-use':'Ese email ya esta registrado.','auth/weak-password':'La contrasena necesita al menos 6 caracteres.','auth/invalid-email':'Email no valido.','auth/invalid-credential':'Email o contrasena incorrectos.'})[code]||'Error al autenticar.';}
+function friendlyError(code){return({'auth/user-not-found':'No existe cuenta con ese email.','auth/wrong-password':'Contrasena incorrecta.','auth/email-already-in-use':'Ese email ya esta registrado.','auth/weak-password':'La contrasena necesita al menos 6 caracteres.','auth/invalid-email':'Email no valido.','auth/invalid-credential':'Email o contrasena incorrectos.'})[code]||'Error al autenticar.'}
 
 // ---- AUTH ----
 window.switchAuthTab=function(tab,btn){document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('login-form').style.display=tab==='login'?'block':'none';document.getElementById('register-form').style.display=tab==='register'?'block':'none';document.getElementById('auth-error').classList.remove('show');}
@@ -603,7 +614,14 @@ async function loadRecipes(){
 }
 
 // ---- SECTIONS ----
-window.showSection=function(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('s-'+id).classList.add('active');btn.classList.add('active');if(id==='recipes')renderRecipes();if(id==='planner')renderPlanner();if(id==='shopping')renderShopping();}
+window.showSection=function(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');btn.classList.add('active');
+  if(id==='recipes')renderRecipes();
+  if(id==='planner')renderPlanner();
+  if(id==='shopping')renderShopping();
+}
 
 // ---- RECIPES ----
 window.setFilter=function(f,btn){currentFilter=f;document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderRecipes();}
@@ -623,12 +641,12 @@ window.copyRecipe=async function(id){const r=pubRecipes.find(x=>x.id===id);if(!r
 // ---- DETAIL ----
 window.openDetail=function(id,isPublic){
   const allR=[...myRecipes,...pubRecipes];const r=allR.find(x=>x.id===id);if(!r)return;
-  detailRecipe=r;detailPersons=1;
+  detailRecipe=r;detailPersons=1;detailIsPublic=isPublic;
   const hero=document.getElementById('detail-hero');
   hero.innerHTML=r.photo?`<img src="${esc(r.photo)}" alt="${esc(r.name)}" onerror="this.parentElement.innerHTML='&#127869;'">`:'&#127869;';
   document.getElementById('detail-name').textContent=r.name;
   document.getElementById('detail-meta').innerHTML=`<span class="badge badge-olive">${esc(r.category||'')}</span>${r.time&&r.time!=='0 min'?`<span class="badge" style="background:var(--warm);color:var(--muted)">&#9201; ${esc(r.time)}</span>`:''}`;
-  document.getElementById('detail-p').textContent=1;
+  document.getElementById('detail-p').textContent=detailPersons;
   renderDetailIngs();
   const nw=document.getElementById('detail-notes-wrap');
   if(r.notes){nw.style.display='block';document.getElementById('detail-notes').textContent=r.notes;}else{nw.style.display='none';}
@@ -645,180 +663,6 @@ function renderDetailIngs(){
 window.changeDetailPersons=function(d){detailPersons=Math.max(1,Math.min(20,detailPersons+d));document.getElementById('detail-p').textContent=detailPersons;renderDetailIngs();}
 window.closeDetail=function(){document.getElementById('detail-modal').classList.remove('open');detailRecipe=null;}
 
-// ---- SMART RECIPE ----
-const RECIPE_DB = {
-  // Desayunos
-  'tortitas':['avena:40:g','huevo:1:ud','claras:60:g','leche:50:ml','canela:1:al gusto'],
-  'porridge':['avena:60:g','leche:200:ml','platano:1:ud','miel:10:g'],
-  'tostadas aguacate':['pan:60:g','aguacate:80:g','huevo:2:ud','limon:1:al gusto','sal:1:al gusto'],
-  'batido proteico':['proteina en polvo:30:g','leche:250:ml','platano:1:ud','avena:30:g'],
-  'yogur granola':['yogur griego:200:g','granola:40:g','frutos rojos:80:g','miel:10:g'],
-  'huevos revueltos':['huevos:3:ud','mantequilla:5:g','sal:1:al gusto','pimienta:1:al gusto'],
-  // Comidas y cenas
-  'pollo limon':['pollo:150:g','limon:1:ud','ajo:2:ud','aceite de oliva:15:ml','romero:1:al gusto','patatas:150:g'],
-  'ensalada cesar':['lechuga romana:150:g','pollo:120:g','queso parmesano:20:g','picatostes:20:g','salsa cesar:30:g'],
-  'pasta carbonara':['pasta:80:g','bacon:60:g','huevo:2:ud','queso parmesano:25:g','pimienta negra:1:al gusto'],
-  'pasta boloñesa':['pasta:80:g','carne picada:120:g','tomate triturado:150:g','cebolla:50:g','ajo:2:ud','aceite de oliva:15:ml'],
-  'arroz pollo':['arroz:80:g','pollo:150:g','pimiento:80:g','cebolla:60:g','tomate:80:g','aceite de oliva:15:ml'],
-  'lentejas':['lentejas:80:g','zanahoria:80:g','cebolla:60:g','ajo:2:ud','pimenton:5:g','aceite de oliva:15:ml'],
-  'salmon':['salmon:150:g','limon:1:ud','aceite de oliva:15:ml','sal:1:al gusto','verduras:150:g'],
-  'tortilla':['huevos:3:ud','patatas:200:g','cebolla:60:g','aceite de oliva:30:ml','sal:1:al gusto'],
-  'gazpacho':['tomate:300:g','pepino:80:g','pimiento verde:60:g','ajo:1:ud','aceite de oliva:20:ml','vinagre:10:ml'],
-  'croquetas':['leche:200:ml','harina:40:g','mantequilla:30:g','jamon:80:g','pan rallado:50:g','huevo:1:ud'],
-  'paella':['arroz:100:g','pollo:120:g','gambas:80:g','pimiento:60:g','tomate:80:g','azafran:1:al gusto','caldo:300:ml'],
-  'estofado':['ternera:150:g','patatas:150:g','zanahoria:80:g','cebolla:60:g','vino tinto:50:ml','caldo:200:ml'],
-  'revuelto':['huevos:3:ud','champiñones:100:g','jamon:50:g','aceite de oliva:10:ml','sal:1:al gusto'],
-  'burrito':['tortilla de trigo:1:ud','pollo:120:g','arroz:60:g','frijoles:50:g','aguacate:50:g','queso:30:g'],
-  'bowl':['arroz:80:g','pollo:120:g','aguacate:60:g','edamame:40:g','zanahoria:50:g','salsa de soja:15:ml'],
-  // Snacks
-  'hummus':['garbanzos:100:g','tahini:20:g','limon:1:ud','ajo:1:ud','aceite de oliva:15:ml','sal:1:al gusto'],
-  'guacamole':['aguacate:100:g','tomate:50:g','cebolla:20:g','limon:1:ud','cilantro:1:al gusto','sal:1:al gusto'],
-  // Postres
-  'flan':['huevos:3:ud','leche:250:ml','azucar:80:g','caramelo:30:g'],
-  'mousse chocolate':['chocolate negro:80:g','nata:100:ml','huevos:2:ud','azucar:30:g'],
-  'bizcocho':['harina:100:g','azucar:80:g','huevos:2:ud','aceite:60:ml','leche:80:ml','levadura:5:g'],
-};
-
-const NOTES_DB = {
-  'tortitas':'Mezcla todos los ingredientes hasta obtener una masa homogenea. Cocina en sartén antiadherente a fuego medio, 2-3 min por cada lado. Sirve con fruta o miel.',
-  'porridge':'Calienta la leche con la avena a fuego medio, removiendo constantemente durante 5 min. Anade el platano troceado y la miel al servir.',
-  'tostadas aguacate':'Tuesta el pan. Aplasta el aguacate con sal y zumo de limon. Extiende sobre el pan y coloca los huevos pochados o fritos encima.',
-  'batido proteico':'Bate todos los ingredientes en una batidora hasta obtener una textura suave. Sirve inmediatamente.',
-  'yogur granola':'Sirve el yogur en un bol, cubre con granola y frutos rojos. Anade miel al gusto.',
-  'huevos revueltos':'Bate los huevos con sal. Calienta la mantequilla en sarten a fuego bajo. Anade los huevos y remueve suavemente hasta que esten cremosos.',
-  'pollo limon':'Marina el pollo con limon, ajo, aceite y romero 30 min. Hornea a 200C durante 25 min. Sirve con patatas asadas.',
-  'ensalada cesar':'Mezcla la lechuga con el pollo en tiras a la plancha. Anade los picatostes y el parmesano. Aliña con salsa cesar.',
-  'pasta carbonara':'Cuece la pasta. En un bol mezcla huevos y parmesano. Saltea el bacon. Mezcla todo fuera del fuego para que los huevos no cuajen.',
-  'pasta boloñesa':'Sofrie cebolla y ajo. Anade la carne y dora. Incorpora el tomate y cocina 20 min a fuego lento. Sirve sobre la pasta cocida.',
-  'arroz pollo':'Sofrie las verduras, anade el pollo y dora. Incorpora el arroz y el caldo. Cocina tapado a fuego medio durante 18 min.',
-  'lentejas':'Sofrie cebolla, ajo y zanahoria. Anade las lentejas lavadas, el pimenton y agua o caldo. Cocina 30-35 min a fuego medio.',
-  'salmon':'Marca el salmon a la plancha 3 min por cada lado. Sazona con sal, pimienta y limon. Acompana con verduras al vapor.',
-  'tortilla':'Pela y corta las patatas finas. Frielas en abundante aceite. Escurre y mezcla con los huevos batidos. Cuaja en sarten a fuego medio-bajo.',
-  'gazpacho':'Tritura todos los ingredientes. Cuela para obtener una textura fina. Refrigera al menos 1 hora antes de servir.',
-  'paella':'Sofrie el pollo y las verduras. Anade el arroz, el azafran y el caldo caliente. Cocina 18 min sin remover. Reposa 5 min tapado.',
-  'estofado':'Sella la ternera en dados. Anade las verduras, el vino y el caldo. Cocina a fuego lento 1.5 horas hasta que la carne este tierna.',
-  'revuelto':'Saltea los champiñones con el jamon. Bate los huevos y anadelos a fuego bajo, removiendo suavemente hasta obtener un revuelto cremoso.',
-  'burrito':'Calienta la tortilla. Rellena con el pollo a la plancha, el arroz, los frijoles, el aguacate y el queso. Enrolla firmemente.',
-  'bowl':'Prepara una base de arroz. Coloca encima el pollo en tiras, el aguacate en laminas, el edamame y la zanahoria rallada. Aliña con salsa de soja.',
-  'hummus':'Tritura los garbanzos escurridos con el tahini, el limon, el ajo y el aceite hasta obtener una crema suave. Rectifica de sal.',
-  'guacamole':'Aplasta el aguacate con un tenedor. Mezcla con el tomate picado, la cebolla, el zumo de limon y el cilantro. Sazona al gusto.',
-  'flan':'Bate los huevos con el azucar y la leche caliente. Vierte en moldes con caramelo. Hornea al bano maria 45 min a 170C.',
-  'mousse chocolate':'Derrite el chocolate. Monta la nata. Separa claras de yemas, bate con azucar. Mezcla chocolate con yemas, luego nata y claras con movimientos envolventes.',
-  'bizcocho':'Mezcla huevos con azucar hasta blanquear. Anade el aceite y la leche. Incorpora la harina con la levadura tamizadas. Hornea 35 min a 180C.',
-};
-
-const COMMON_PANTRY=['pollo','arroz','pasta','huevos','tomate','cebolla','ajo','aceite de oliva','patatas','zanahoria','pimiento','lechuga','atun','salmon','carne picada','lentejas','garbanzos','leche','queso','yogur','pan','avena','platano','manzana','limon'];
-
-function smartMatch(title){
-  const t=title.toLowerCase().trim();
-  if(!t) return null;
-  // exact match
-  for(const key of Object.keys(RECIPE_DB)){if(t.includes(key)||key.includes(t)){return key;}}
-  // word match
-  const words=t.split(' ');
-  for(const key of Object.keys(RECIPE_DB)){const kwords=key.split(' ');if(words.some(w=>w.length>3&&kwords.some(k=>k.includes(w)||w.includes(k))))return key;}
-  return null;
-}
-
-function buildSmartIngredients(key){
-  return (RECIPE_DB[key]||[]).map(s=>{const[name,amount,unit]=s.split(':');return{name,amount:parseFloat(amount)||0,unit};});
-}
-
-window.smartSuggest=function(title){
-  const area=document.getElementById('smart-result-area');
-  if(!title||title.length<3){area.innerHTML='';pendingSmartRecipe=null;return;}
-  const key=smartMatch(title);
-  const cat=document.getElementById('smart-cat').value;
-  if(key){
-    const ings=buildSmartIngredients(key);
-    const notes=NOTES_DB[key]||'Prepara los ingredientes y cocina al gusto.';
-    pendingSmartRecipe={name:title,category:cat,time:estimateTime(key),notes,ingredients:ings};
-    area.innerHTML=`<div class="smart-result">
-      <div style="font-size:.78rem;color:var(--sage);font-weight:500;margin-bottom:.5rem">&#10003; Receta encontrada</div>
-      <strong style="color:var(--olive)">${esc(title)}</strong>
-      <div style="font-size:.78rem;color:var(--muted);margin:.2rem 0">${esc(cat)} &middot; ${esc(pendingSmartRecipe.time)}</div>
-      <div style="margin:.65rem 0;font-size:.85rem"><strong>Ingredientes:</strong><br>${ings.map(i=>`${i.name}: ${i.unit==='al gusto'?'al gusto':`${i.amount} ${i.unit}`}`).join('<br>')}</div>
-      <div style="font-size:.82rem;color:var(--muted)">Podras editar todos los ingredientes despues de guardar.</div>
-    </div>`;
-  } else {
-    pendingSmartRecipe={name:title,category:cat,time:'20 min',notes:'',ingredients:[{name:'Ingrediente principal',amount:150,unit:'g'},{name:'Condimentos',amount:1,unit:'al gusto'}]};
-    area.innerHTML=`<div class="smart-result">
-      <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">No tenemos esta receta en la base de datos, se creara con ingredientes basicos que podras editar.</div>
-      <strong style="color:var(--olive)">${esc(title)}</strong>
-      <div style="font-size:.82rem;color:var(--muted);margin-top:.4rem">Se creara como borrador para que la completes manualmente.</div>
-    </div>`;
-  }
-}
-
-function estimateTime(key){
-  const quick=['tortitas','batido proteico','yogur granola','huevos revueltos','ensalada cesar','revuelto','hummus','guacamole'];
-  const medium=['porridge','tostadas aguacate','pasta carbonara','pasta boloñesa','arroz pollo','salmon','tortilla','burrito','bowl'];
-  const slow=['lentejas','paella','estofado','flan','mousse chocolate','bizcocho','croquetas'];
-  if(quick.includes(key))return '10 min';
-  if(medium.includes(key))return '25 min';
-  if(slow.includes(key))return '45 min';
-  return '20 min';
-}
-
-window.switchSmartMode=function(mode,btn){
-  smartMode=mode;
-  document.querySelectorAll('.smart-mode-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
-  document.getElementById('smart-name-mode').style.display=mode==='name'?'block':'none';
-  document.getElementById('smart-pantry-mode').style.display=mode==='pantry'?'block':'none';
-  document.getElementById('smart-result-area').innerHTML='';
-  pendingSmartRecipe=null;
-  if(mode==='pantry') renderPantryTags();
-}
-
-function renderPantryTags(){
-  const c=document.getElementById('pantry-tags');
-  c.innerHTML=COMMON_PANTRY.map(i=>`<span class="smart-ing-tag${smartPantryTags.includes(i)?' selected':''}" onclick="togglePantryTag('${i}',this)">${i}</span>`).join('');
-}
-window.togglePantryTag=function(ing,el){
-  if(smartPantryTags.includes(ing)){smartPantryTags=smartPantryTags.filter(x=>x!==ing);el.classList.remove('selected');}
-  else{smartPantryTags.push(ing);el.classList.add('selected');}
-}
-window.addPantryTag=function(e){
-  if(e.key==='Enter'){
-    const v=e.target.value.trim().toLowerCase();
-    if(v&&!smartPantryTags.includes(v)){smartPantryTags.push(v);renderPantryTags();}
-    e.target.value='';
-    buildPantryRecipe();
-  }
-}
-
-function buildPantryRecipe(){
-  const title=document.getElementById('smart-title2').value.trim()||'Plato con lo que tengo';
-  const cat=document.getElementById('smart-cat2').value;
-  if(!smartPantryTags.length){document.getElementById('smart-result-area').innerHTML='';return;}
-  const ings=smartPantryTags.map(i=>({name:i,amount:100,unit:'g'}));
-  pendingSmartRecipe={name:title,category:cat,time:'25 min',notes:'Prepara y combina los ingredientes al gusto.',ingredients:ings};
-  document.getElementById('smart-result-area').innerHTML=`<div class="smart-result">
-    <strong style="color:var(--olive)">${esc(title)}</strong>
-    <div style="font-size:.78rem;color:var(--muted);margin:.2rem 0">${esc(cat)}</div>
-    <div style="margin:.65rem 0;font-size:.85rem"><strong>Ingredientes seleccionados:</strong><br>${ings.map(i=>i.name).join(', ')}</div>
-    <div style="font-size:.82rem;color:var(--muted)">Podras ajustar cantidades despues de guardar.</div>
-  </div>`;
-}
-
-window.openSmartModal=function(){
-  smartPantryTags=[];pendingSmartRecipe=null;
-  document.getElementById('smart-title').value='';document.getElementById('smart-title2').value='';
-  document.getElementById('smart-result-area').innerHTML='';
-  document.getElementById('smart-modal').classList.add('open');
-}
-window.closeSmartModal=function(){document.getElementById('smart-modal').classList.remove('open');}
-
-window.applySmartRecipe=async function(){
-  if(smartMode==='pantry') buildPantryRecipe();
-  if(!pendingSmartRecipe){alert('Escribe el nombre del plato primero');return}
-  const data={uid:currentUser.uid,...pendingSmartRecipe,public:false,photo:null,createdAt:serverTimestamp(),updatedAt:serverTimestamp()};
-  const docRef=await addDoc(collection(db,'recipes'),data);
-  await loadRecipes();closeSmartModal();renderRecipes();
-  // Open edit modal so user can tweak
-  setTimeout(()=>openRecipeModal(docRef.id),300);
-}
-
 // ---- PHOTO ----
 window.switchPhotoTab=function(mode,btn){document.querySelectorAll('.photo-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('photo-upload-area').style.display=mode==='upload'?'block':'none';document.getElementById('photo-url-area').style.display=mode==='url'?'block':'none';}
 window.handlePhotoFile=function(input){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{photoData={type:'file',file,dataUrl:e.target.result};document.getElementById('photo-preview').innerHTML=`<img src="${e.target.result}" alt="preview">`;};reader.readAsDataURL(file);}
@@ -833,7 +677,7 @@ window.openRecipeModal=function(id){
   document.getElementById('photo-preview').innerHTML=`<div class="photo-placeholder"><span>&#128247;</span><span>Toca para anadir foto</span></div>`;
   document.getElementById('photo-url-preview').innerHTML=`<div class="photo-placeholder"><span>&#128444;</span><span>Introduce una URL</span></div>`;
   document.getElementById('photo-url-input').value='';document.getElementById('photo-file').value='';
-  if(id){const r=myRecipes.find(x=>x.id===id);if(!r)return;document.getElementById('r-name').value=r.name||'';document.getElementById('r-cat').value=r.category||'Primeros';document.getElementById('r-time').value=r.time||'';document.getElementById('r-notes').value=r.notes||'';document.getElementById('r-public').checked=r.public||false;if(r.photo){photoData={type:'url',url:r.photo};document.getElementById('photo-preview').innerHTML=`<img src="${esc(r.photo)}" alt="foto">`;}(r.ingredients||[]).forEach(i=>addIngredient(i.name,i.amount,i.unit));}
+  if(id){const r=myRecipes.find(x=>x.id===id);document.getElementById('r-name').value=r.name||'';document.getElementById('r-cat').value=r.category||'Primeros';document.getElementById('r-time').value=r.time||'';document.getElementById('r-notes').value=r.notes||'';document.getElementById('r-public').checked=r.public||false;if(r.photo){photoData={type:'url',url:r.photo};document.getElementById('photo-preview').innerHTML=`<img src="${esc(r.photo)}" alt="foto">`;}(r.ingredients||[]).forEach(i=>addIngredient(i.name,i.amount,i.unit));}
   else{document.getElementById('r-name').value='';document.getElementById('r-cat').value='Primeros';document.getElementById('r-time').value='';document.getElementById('r-notes').value='';document.getElementById('r-public').checked=false;addIngredient();}
   document.getElementById('recipe-modal').classList.add('open');
   setTimeout(()=>document.getElementById('r-name').focus(),100);
@@ -852,48 +696,154 @@ window.saveRecipe=async function(){
 }
 window.closeModal=function(){document.getElementById('recipe-modal').classList.remove('open');editingId=null;photoData=null;}
 
+// ---- AI RECIPE ----
+window.openAIModal=function(){
+  aiGeneratedRecipe=null;
+  document.getElementById('ai-title').value='';document.getElementById('ai-title2').value='';
+  document.getElementById('ai-ings-input').value='';
+  document.getElementById('ai-status').style.display='none';
+  document.getElementById('ai-result-area').style.display='none';document.getElementById('ai-result-area').innerHTML='';
+  document.getElementById('ai-footer').innerHTML=`<button class="btn btn-outline" onclick="closeAIModal()">Cancelar</button><button class="btn btn-sage" id="ai-gen-btn" onclick="generateAIRecipe()">&#10024; Generar receta</button>`;
+  document.getElementById('ai-modal').classList.add('open');
+}
+window.closeAIModal=function(){document.getElementById('ai-modal').classList.remove('open');aiGeneratedRecipe=null;}
+window.switchAIMode=function(mode,btn){aiMode=mode;document.querySelectorAll('.ai-mode-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('ai-title-mode').style.display=mode==='title'?'block':'none';document.getElementById('ai-ing-mode').style.display=mode==='ingredients'?'block':'none';}
+window.generateAIRecipe=async function(){
+  const title=aiMode==='title'?document.getElementById('ai-title').value.trim():document.getElementById('ai-title2').value.trim();
+  const cat=aiMode==='title'?document.getElementById('ai-cat').value:document.getElementById('ai-cat2').value;
+  const ings=aiMode==='ingredients'?document.getElementById('ai-ings-input').value.trim():'';
+  if(!title){alert('Escribe el nombre de la receta');return}
+  document.getElementById('ai-status').style.display='block';
+  document.getElementById('ai-result-area').style.display='none';
+  document.getElementById('ai-footer').innerHTML=`<button class="btn btn-outline" onclick="closeAIModal()">Cancelar</button>`;
+  const prompt=aiMode==='title'
+    ?`Crea una receta completa para "${title}" (categoria: ${cat}). Responde SOLO en JSON con este formato exacto sin markdown: {"name":"...","category":"${cat}","time":"X min","notes":"pasos de elaboracion detallados","ingredients":[{"name":"...","amount":numero,"unit":"g o kg o ml o l o ud o cdta o cda o taza o al gusto"}]} Los ingredientes deben ser para 1 persona con pesos exactos en gramos.`
+    :`Crea una receta llamada "${title}" (categoria: ${cat}) usando principalmente estos ingredientes: ${ings}. Responde SOLO en JSON con este formato exacto sin markdown: {"name":"...","category":"${cat}","time":"X min","notes":"pasos de elaboracion detallados","ingredients":[{"name":"...","amount":numero,"unit":"g o kg o ml o l o ud o cdta o cda o taza o al gusto"}]} Los ingredientes deben ser para 1 persona con pesos exactos.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content?.find(b=>b.type==='text')?.text||'';
+    let recipe;
+    try{recipe=JSON.parse(text.replace(/```json|```/g,'').trim());}catch(e){throw new Error('No se pudo parsear la respuesta de la IA');}
+    aiGeneratedRecipe=recipe;
+    document.getElementById('ai-status').style.display='none';
+    const area=document.getElementById('ai-result-area');
+    area.style.display='block';
+    area.innerHTML=`<div class="ai-result">
+      <strong style="font-size:1rem;color:var(--olive)">${esc(recipe.name)}</strong>
+      <div style="font-size:.78rem;color:var(--muted);margin:.25rem 0">${esc(recipe.category)} &middot; ${esc(recipe.time)}</div>
+      <div style="margin:.75rem 0;font-size:.85rem"><strong>Ingredientes (1 persona):</strong><br>${(recipe.ingredients||[]).map(i=>`${i.name}: ${i.unit==='al gusto'?'al gusto':`${i.amount} ${i.unit}`}`).join('<br>')}</div>
+      <div style="font-size:.85rem"><strong>Elaboracion:</strong><br>${esc(recipe.notes).replace(/\n/g,'<br>')}</div>
+    </div>`;
+    document.getElementById('ai-footer').innerHTML=`<button class="btn btn-outline" onclick="closeAIModal()">Cancelar</button><button class="btn btn-outline" onclick="generateAIRecipe()">&#8635; Regenerar</button><button class="btn btn-primary" onclick="saveAIRecipe()">Guardar receta</button>`;
+  }catch(e){
+    document.getElementById('ai-status').style.display='none';
+    document.getElementById('ai-result-area').style.display='block';
+    document.getElementById('ai-result-area').innerHTML=`<div style="color:#c0392b;font-size:.88rem;padding:.75rem;background:#fef0ee;border-radius:8px">Error al generar la receta. Intentalo de nuevo.</div>`;
+    document.getElementById('ai-footer').innerHTML=`<button class="btn btn-outline" onclick="closeAIModal()">Cancelar</button><button class="btn btn-sage" onclick="generateAIRecipe()">&#10024; Reintentar</button>`;
+  }
+}
+window.saveAIRecipe=async function(){
+  if(!aiGeneratedRecipe)return;
+  const data={uid:currentUser.uid,name:aiGeneratedRecipe.name,category:aiGeneratedRecipe.category||'Otros',time:aiGeneratedRecipe.time||'',notes:aiGeneratedRecipe.notes||'',public:false,ingredients:aiGeneratedRecipe.ingredients||[],photo:null,createdAt:serverTimestamp(),updatedAt:serverTimestamp()};
+  await addDoc(collection(db,'recipes'),data);
+  await loadRecipes();closeAIModal();renderRecipes();
+  alert('Receta guardada en Mis Recetas.');
+}
+
 // ---- PLANNER ----
-window.setPlannerView=function(view,btn){plannerView=view;document.querySelectorAll('.view-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('planner-week').style.display=view==='week'?'block':'none';document.getElementById('planner-month').style.display=view==='month'?'block':'none';renderPlanner();}
-window.navigatePeriod=function(dir){if(plannerView==='week'){currentWeekStart=new Date(currentWeekStart);currentWeekStart.setDate(currentWeekStart.getDate()+dir*7);}else{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+dir,1);}renderPlanner();}
+window.setPlannerView=function(view,btn){
+  plannerView=view;
+  document.querySelectorAll('.view-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
+  document.getElementById('planner-week').style.display=view==='week'?'block':'none';
+  document.getElementById('planner-month').style.display=view==='month'?'block':'none';
+  renderPlanner();
+}
+window.navigatePeriod=function(dir){
+  if(plannerView==='week'){currentWeekStart=new Date(currentWeekStart);currentWeekStart.setDate(currentWeekStart.getDate()+dir*7);}
+  else{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+dir,1);}
+  renderPlanner();
+}
 window.goToToday=function(){currentWeekStart=getThisMonday();currentMonth=new Date();renderPlanner();}
 
 function renderPlanner(){
   document.getElementById('persons-count').textContent=persons;
-  document.getElementById('period-label').textContent=plannerView==='week'?weekLabel(currentWeekStart):monthLabel(currentMonth);
-  if(plannerView==='week')renderWeek();else renderMonth();
+  if(plannerView==='week'){
+    document.getElementById('period-label').textContent=weekLabel(currentWeekStart);
+    renderWeek();
+  } else {
+    document.getElementById('period-label').textContent=monthLabel(currentMonth);
+    renderMonth();
+  }
 }
 
+function getPlanKey(date){return dateKey(date)}
+
 function renderWeek(){
-  const days=weekDays(currentWeekStart);const allR=[...myRecipes,...pubRecipes];const todayKey=dateKey(new Date());
+  const days=weekDays(currentWeekStart);
+  const allR=[...myRecipes,...pubRecipes];
   document.getElementById('week-grid').innerHTML=days.map((date,i)=>{
-    const key=dateKey(date);const dp=plan[key]||{};const isToday=key===todayKey;
+    const key=dateKey(date);
+    const dp=plan[key]||{};
+    const isToday=dateKey(new Date())===key;
     return `<div class="day-cell${isToday?' today':''}">
-      <div class="day-name${isToday?' today':''}">${DAYS_ES[i].substring(0,3)} ${date.getDate()}</div>
-      ${SLOTS.map(slot=>{const meals=dp[slot]||[];return `<div class="meal-slot"><div class="meal-label">${SLOT_LABELS[slot]}</div>${meals.map(rid=>{const r=allR.find(x=>x.id===rid);const n=r?r.name:'?';return `<div class="meal-item"><span title="${esc(n)}">${esc(n)}</span><button class="remove-meal" onclick="removeMealDate('${key}','${slot}','${rid}')">x</button></div>`;}).join('')}<button class="add-meal-btn" onclick="openMealModal('${key}','${slot}')">+</button></div>`;}).join('')}
+      <div class="day-name" style="${isToday?'color:var(--olive);font-weight:600':''}">${DAYS_ES[i].substring(0,3)} ${date.getDate()}</div>
+      ${SLOTS.map(slot=>{
+        const meals=dp[slot]||[];
+        return `<div class="meal-slot"><div class="meal-label">${SLOT_LABELS[slot]}</div>
+          ${meals.map(rid=>{const r=allR.find(x=>x.id===rid);const n=r?r.name:'?';return `<div class="meal-item"><span title="${esc(n)}">${esc(n)}</span><button class="remove-meal" onclick="removeMealDate('${key}','${slot}','${rid}')">x</button></div>`;}).join('')}
+          <button class="add-meal-btn" onclick="openMealModal('${key}','${slot}')">+</button>
+        </div>`;
+      }).join('')}
     </div>`;
   }).join('');
 }
 
 function renderMonth(){
   const year=currentMonth.getFullYear(),month=currentMonth.getMonth();
-  const firstDay=new Date(year,month,1);const lastDay=new Date(year,month+1,0);
+  const firstDay=new Date(year,month,1);
+  const lastDay=new Date(year,month+1,0);
   const startDow=firstDay.getDay()===0?6:firstDay.getDay()-1;
-  const allR=[...myRecipes,...pubRecipes];const todayKey=dateKey(new Date());
-  document.getElementById('month-slot-tabs').innerHTML=SLOTS.map(s=>`<button class="month-slot-tab${currentMonthSlot===s?' active':''}" onclick="setMonthSlot('${s}',this)">${SLOT_LABELS_FULL[s]}</button>`).join('');
+  const allR=[...myRecipes,...pubRecipes];
+  const todayKey=dateKey(new Date());
+
+  // slot tabs
+  const slotTabsEl=document.getElementById('month-slot-tabs');
+  slotTabsEl.innerHTML=SLOTS.map(s=>`<button class="month-slot-tab${currentMonthSlot===s?' active':''}" onclick="setMonthSlot('${s}',this)">${SLOT_LABELS_FULL[s]}</button>`).join('');
+
+  // grid headers
   let html=DAY_HEADERS.map(h=>`<div class="month-day-header">${h}</div>`).join('');
-  for(let i=0;i<startDow;i++)html+=`<div class="month-cell empty-day"></div>`;
+
+  // empty cells before
+  for(let i=0;i<startDow;i++) html+=`<div class="month-cell empty-day"></div>`;
+
+  // days
   for(let d=1;d<=lastDay.getDate();d++){
-    const date=new Date(year,month,d);const key=dateKey(date);const isToday=key===todayKey;
+    const date=new Date(year,month,d);
+    const key=dateKey(date);
+    const isToday=key===todayKey;
     const meals=(plan[key]?.[currentMonthSlot])||[];
-    html+=`<div class="month-cell${isToday?' today':''}"><div class="month-day-num${isToday?' today':''}">${d}</div>${meals.map(rid=>{const r=allR.find(x=>x.id===rid);const n=r?r.name:'?';return `<div class="month-meal-item" title="${esc(n)}">${esc(n)}</div>`;}).join('')}<div class="month-add-btn" onclick="openMealModal('${key}','${currentMonthSlot}')">+</div></div>`;
+    html+=`<div class="month-cell${isToday?' today':''}">
+      <div class="month-day-num" style="${isToday?'color:var(--olive);font-weight:700':''}">${d}</div>
+      ${meals.map(rid=>{const r=allR.find(x=>x.id===rid);const n=r?r.name:'?';return `<div class="month-meal-item" title="${esc(n)}">${esc(n)}</div>`;}).join('')}
+      <div class="month-add-btn" onclick="openMealModal('${key}','${currentMonthSlot}')">+</div>
+    </div>`;
   }
   document.getElementById('month-grid').innerHTML=html;
 }
-window.setMonthSlot=function(slot,btn){currentMonthSlot=slot;document.querySelectorAll('.month-slot-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderMonth();}
+
+window.setMonthSlot=function(slot,btn){
+  currentMonthSlot=slot;
+  document.querySelectorAll('.month-slot-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
+  renderMonth();
+}
+
 window.changePersons=async function(d){persons=Math.max(1,Math.min(20,persons+d));document.getElementById('persons-count').textContent=persons;await saveUserData();}
-window.openMealModal=function(key,slot){
+
+window.openMealModal=function(dateKeyOrDay,slot){
   const all=[...myRecipes,...pubRecipes];if(!all.length){alert('Primero anade recetas');return}
-  document.getElementById('m-day').value=key;document.getElementById('m-slot-sel').value=slot;
+  document.getElementById('m-day').value=dateKeyOrDay;
+  document.getElementById('m-slot-sel').value=slot;
   document.getElementById('m-recipe').innerHTML=all.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join('');
   document.getElementById('meal-modal').classList.add('open');
 }
@@ -908,35 +858,22 @@ window.removeMealDate=async function(key,slot,rid){
   await saveUserData();renderPlanner();
 }
 
-// ---- RANDOMIZER (con filtro por categoria) ----
-window.openRandModal=function(){document.getElementById('rand-warning').style.display='none';document.getElementById('rand-modal').classList.add('open');}
+// ---- RANDOMIZER ----
+window.openRandomizerModal=function(){document.getElementById('rand-modal').classList.add('open');}
 window.closeRandModal=function(){document.getElementById('rand-modal').classList.remove('open');}
 window.applyRandomizer=async function(){
   const slots=SLOTS.filter(s=>document.getElementById('rand-'+s)?.checked);
   if(!slots.length){alert('Selecciona al menos una franja');return}
   const overwrite=document.getElementById('rand-overwrite').checked;
   const allR=[...myRecipes,...pubRecipes];
-  const warnings=[];
-  // Check availability per slot
-  slots.forEach(slot=>{
-    const cats=SLOT_CATEGORIES[slot];
-    const available=allR.filter(r=>cats.includes(r.category));
-    if(!available.length) warnings.push(`No tienes recetas de categoria "${cats.join(', ')}" para la franja "${SLOT_LABELS_FULL[slot]}".`);
-  });
-  if(warnings.length){
-    const w=document.getElementById('rand-warning');w.style.display='block';w.innerHTML=warnings.join('<br>');
-    if(warnings.length===slots.length)return;
-  } else {
-    document.getElementById('rand-warning').style.display='none';
-  }
+  if(!allR.length){alert('No tienes recetas');return}
   const days=weekDays(currentWeekStart);
   days.forEach(date=>{
-    const key=dateKey(date);if(!plan[key])plan[key]={};
+    const key=dateKey(date);
+    if(!plan[key])plan[key]={};
     slots.forEach(slot=>{
       if(!overwrite&&plan[key][slot]?.length)return;
-      const cats=SLOT_CATEGORIES[slot];
-      const available=allR.filter(r=>cats.includes(r.category));
-      if(available.length) plan[key][slot]=[rand(available).id];
+      plan[key][slot]=[rand(allR).id];
     });
   });
   await saveUserData();closeRandModal();renderPlanner();
@@ -966,8 +903,6 @@ function renderShopping(){
 function shopItem(i){const k=i.name.toLowerCase()+'__'+i.unit;return `<div class="shop-item"><input type="checkbox" ${i.checked?'checked':''} onchange="toggleItem('${esc(k)}',this.checked)"><span class="shop-item-name${i.checked?' checked':''}">${esc(i.name)}</span><span class="shop-item-amount">${i.unit==='al gusto'?'al gusto':fmtAmt(i.amount)+' '+i.unit}</span></div>`;}
 window.toggleItem=async function(k,v){if(shopping[k])shopping[k].checked=v;await saveUserData();renderShopping();}
 window.clearChecked=async function(){Object.keys(shopping).forEach(k=>{if(shopping[k].checked)delete shopping[k]});await saveUserData();renderShopping();}
-
-const SLOT_LABELS_FULL={desayuno:'Desayuno',snack_man:'Snack manana',comida:'Comida',snack_tar:'Snack tarde',cena:'Cena'};
 </script>
 </body>
 </html>
