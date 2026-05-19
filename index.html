@@ -393,9 +393,10 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
   <div class="modal" style="max-width:520px">
     <h3 class="modal-title">&#10024; Receta rapida</h3>
     <div class="smart-info">Escribe el nombre del plato y la app sugerira ingredientes tipicos que puedes ajustar.</div>
-    <div class="smart-mode-tabs">
-      <button class="smart-mode-tab active" onclick="switchSmartMode('name',this)">Por nombre de plato</button>
-      <button class="smart-mode-tab" onclick="switchSmartMode('pantry',this)">Con lo que tengo en casa</button>
+    <div class="smart-mode-tabs" style="display:grid;grid-template-columns:1fr 1fr 1fr">
+      <button class="smart-mode-tab active" onclick="switchSmartMode('name',this)">Por nombre</button>
+      <button class="smart-mode-tab" onclick="switchSmartMode('pantry',this)">Lo que tengo</button>
+      <button class="smart-mode-tab" onclick="switchSmartMode('paste',this)">Pegar texto</button>
     </div>
     <div id="smart-name-mode">
       <div class="form-group"><label>Nombre del plato</label><input type="text" id="smart-title" placeholder="Ej: Pollo al limon, Ensalada cesar..." oninput="smartSuggest(this.value)"></div>
@@ -408,6 +409,15 @@ label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.3rem;font
         <input type="text" id="pantry-custom" placeholder="Escribe y pulsa Enter..." onkeydown="addPantryTag(event)">
       </div>
       <div class="form-group"><label>Categoria</label><select id="smart-cat2"></select></div>
+    </div>
+    <div id="smart-paste-mode" style="display:none">
+      <div class="smart-info" style="margin-bottom:.75rem">Copia el texto de cualquier receta y pegalo aqui. La app extraera automaticamente los ingredientes y pasos.</div>
+      <div class="form-group"><label>Categoria</label><select id="smart-cat3"></select></div>
+      <div class="form-group">
+        <label>Texto de la receta</label>
+        <textarea id="paste-text" rows="8" placeholder="Pega aqui el texto de la receta..."></textarea>
+      </div>
+      <button class="btn btn-sage" onclick="analyzeText()" style="width:100%;justify-content:center;margin-bottom:.5rem">Analizar receta</button>
     </div>
     <div id="smart-result-area"></div>
     <div class="modal-footer">
@@ -570,7 +580,7 @@ function monthLabel(d){return `${MONTHS_ES[d.getMonth()]} ${d.getFullYear()}`}
 // ---- CATEGORY SELECTS ----
 function populateCatSelects(){
   const opts=categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
-  ['r-cat','smart-cat','smart-cat2'].forEach(id=>{
+  ['r-cat','smart-cat','smart-cat2','smart-cat3'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const prev=el.value;
     el.innerHTML=opts;
@@ -768,14 +778,156 @@ window.smartSuggest=function(title){
   if(key){const ings=buildSmartIngs(key);const notes=NOTES_DB[key]||'';pendingSmartRecipe={name:title,category:cat,time:estimateTime(key),notes,ingredients:ings};area.innerHTML=`<div class="smart-result"><div style="font-size:.78rem;color:var(--sage);font-weight:500;margin-bottom:.5rem">Receta encontrada</div><strong style="color:var(--olive)">${esc(title)}</strong><div style="font-size:.78rem;color:var(--muted);margin:.2rem 0">${esc(cat)} - ${estimateTime(key)}</div><div style="margin:.65rem 0;font-size:.85rem"><strong>Ingredientes:</strong><br>${ings.map(i=>`${i.name}: ${i.unit==='al gusto'?'al gusto':`${i.amount} ${i.unit}`}`).join('<br>')}</div><div style="font-size:.82rem;color:var(--muted)">Podras editar todos los detalles despues de guardar.</div></div>`;}
   else{pendingSmartRecipe={name:title,category:cat,time:'20 min',notes:'',ingredients:[{name:'Ingrediente principal',amount:150,unit:'g'},{name:'Condimentos',amount:1,unit:'al gusto'}]};area.innerHTML=`<div class="smart-result"><div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Plato no encontrado. Se creara con ingredientes basicos para que los completes.</div><strong style="color:var(--olive)">${esc(title)}</strong></div>`;}
 }
-window.switchSmartMode=function(mode,btn){smartMode=mode;document.querySelectorAll('.smart-mode-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('smart-name-mode').style.display=mode==='name'?'block':'none';document.getElementById('smart-pantry-mode').style.display=mode==='pantry'?'block':'none';document.getElementById('smart-result-area').innerHTML='';pendingSmartRecipe=null;if(mode==='pantry')renderPantryTags();}
+window.switchSmartMode=function(mode,btn){smartMode=mode;document.querySelectorAll('.smart-mode-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('smart-name-mode').style.display=mode==='name'?'block':'none';document.getElementById('smart-pantry-mode').style.display=mode==='pantry'?'block':'none';document.getElementById('smart-paste-mode').style.display=mode==='paste'?'block':'none';document.getElementById('smart-result-area').innerHTML='';pendingSmartRecipe=null;if(mode==='pantry')renderPantryTags();}
 function renderPantryTags(){document.getElementById('pantry-tags').innerHTML=COMMON_PANTRY.map(i=>`<span class="smart-ing-tag${smartPantryTags.includes(i)?' selected':''}" onclick="togglePantryTag('${i}',this)">${i}</span>`).join('');}
 window.togglePantryTag=function(ing,el){if(smartPantryTags.includes(ing)){smartPantryTags=smartPantryTags.filter(x=>x!==ing);el.classList.remove('selected');}else{smartPantryTags.push(ing);el.classList.add('selected');}buildPantryRecipe();}
 window.addPantryTag=function(e){if(e.key==='Enter'){const v=e.target.value.trim().toLowerCase();if(v&&!smartPantryTags.includes(v)){smartPantryTags.push(v);renderPantryTags();}e.target.value='';buildPantryRecipe();}}
 function buildPantryRecipe(){const title=document.getElementById('smart-title2').value.trim()||'Plato con lo que tengo';const cat=document.getElementById('smart-cat2').value;if(!smartPantryTags.length){document.getElementById('smart-result-area').innerHTML='';return;}const ings=smartPantryTags.map(i=>({name:i,amount:100,unit:'g'}));pendingSmartRecipe={name:title,category:cat,time:'25 min',notes:'Prepara y combina los ingredientes al gusto.',ingredients:ings};document.getElementById('smart-result-area').innerHTML=`<div class="smart-result"><strong style="color:var(--olive)">${esc(title)}</strong><div style="font-size:.78rem;color:var(--muted);margin:.2rem 0">${esc(cat)}</div><div style="margin:.65rem 0;font-size:.85rem"><strong>Ingredientes:</strong><br>${ings.map(i=>i.name).join(', ')}</div></div>`;}
-window.openSmartModal=function(){smartPantryTags=[];pendingSmartRecipe=null;document.getElementById('smart-title').value='';document.getElementById('smart-title2').value='';document.getElementById('smart-result-area').innerHTML='';populateCatSelects();document.getElementById('smart-modal').classList.add('open');}
+window.openSmartModal=function(){smartPantryTags=[];pendingSmartRecipe=null;document.getElementById('smart-title').value='';document.getElementById('smart-title2').value='';document.getElementById('paste-text').value='';document.getElementById('smart-result-area').innerHTML='';populateCatSelects();document.getElementById('smart-modal').classList.add('open');}
 window.closeSmartModal=function(){document.getElementById('smart-modal').classList.remove('open');}
-window.applySmartRecipe=async function(){if(smartMode==='pantry')buildPantryRecipe();if(!pendingSmartRecipe){alert('Escribe el nombre del plato primero');return}const data={accessCode,...pendingSmartRecipe,public:false,photo:null,createdAt:serverTimestamp(),updatedAt:serverTimestamp()};const docRef=await addDoc(collection(db,'recipes'),data);await loadRecipes();closeSmartModal();renderFilterTabs();renderMyRecipes();setTimeout(()=>openRecipeModal(docRef.id),300);}
+window.applySmartRecipe=async function(){if(smartMode==='pantry')buildPantryRecipe();if(smartMode==='paste'&&!pendingSmartRecipe){alert('Primero analiza el texto de la receta');return}if(!pendingSmartRecipe){alert('Escribe el nombre del plato primero');return}const data={accessCode,...pendingSmartRecipe,public:false,photo:null,createdAt:serverTimestamp(),updatedAt:serverTimestamp()};const docRef=await addDoc(collection(db,'recipes'),data);await loadRecipes();closeSmartModal();renderFilterTabs();renderMyRecipes();setTimeout(()=>openRecipeModal(docRef.id),300);}
+
+
+// ---- TEXT ANALYZER ----
+window.analyzeText = function() {
+  const text = document.getElementById('paste-text').value.trim();
+  const cat = document.getElementById('smart-cat3').value;
+  const area = document.getElementById('smart-result-area');
+  if (!text || text.length < 20) { alert('Pega mas texto para poder analizar la receta'); return; }
+
+  // Extract recipe name: first non-empty line or line before Ingredientes
+  const lines = text.split(/
+/).map(l => l.trim()).filter(l => l.length > 0);
+  let name = '';
+  for (const line of lines) {
+    if (!/^(ingredientes|elaboracion|preparacion|modo de|pasos|instrucciones|receta)/i.test(line)) {
+      name = line.replace(/^[#*\-]+\s*/, '').trim();
+      if (name.length > 2 && name.length < 80) break;
+    }
+  }
+  if (!name) name = 'Receta importada';
+
+  // Extract time
+  let time = '';
+  const timeMatch = text.match(/(\d+)\s*min(?:utos?)?/i);
+  if (timeMatch) time = timeMatch[1] + ' min';
+  const hourMatch = text.match(/(\d+)\s*h(?:ora)?s?/i);
+  if (hourMatch && !timeMatch) time = hourMatch[1] + ' h';
+
+  // Extract ingredients section
+  const ingSection = text.match(/ingredientes[:\s]*([\s\S]*?)(?:elaboraci|preparaci|modo de|instrucciones|pasos|$)/i);
+  const ingText = ingSection ? ingSection[1] : text;
+
+  // Parse ingredient lines
+  const ingLines = ingText.split(/
+/).map(l => l.trim()).filter(l => l.length > 1 && l.length < 120);
+  const UNIT_MAP = {
+    'g': ['g','gr','gramo','gramos'],
+    'kg': ['kg','kilo','kilos','kilogramo'],
+    'ml': ['ml','mililitro','mililitros'],
+    'l': ['l','litro','litros'],
+    'ud': ['ud','unidad','unidades','pieza','piezas','und'],
+    'cdta': ['cdta','cucharadita','cucharaditas','tsp'],
+    'cda': ['cda','cucharada','cucharadas','tbsp'],
+    'taza': ['taza','tazas','cup','cups'],
+    'al gusto': ['al gusto','a gusto','c/n','cn','cantidad necesaria','pizca','pizcas','pizca de']
+  };
+
+  function parseUnit(str) {
+    str = str.toLowerCase().trim();
+    for (const [unit, aliases] of Object.entries(UNIT_MAP)) {
+      if (aliases.some(a => str === a || str.startsWith(a + ' '))) return unit;
+    }
+    return null;
+  }
+
+  const ingredients = [];
+  const seen = new Set();
+  for (const line of ingLines) {
+    // Skip section headers and notes
+    if (/^(ingredientes|elaboraci|preparaci|para la|para el|para los|nota|tip|consejo|opcional)/i.test(line)) continue;
+    if (/^[#*]{2,}/.test(line)) continue;
+
+    // Clean markdown/bullets
+    const clean = line.replace(/^[-*•·#>]+\s*/, '').trim();
+    if (!clean || clean.length < 2) continue;
+
+    // Pattern: number + unit + name  OR  name + number + unit
+    // Also handles fractions like 1/2, 1.5, etc.
+    const numRe = /(\d+[\.,]?\d*\/?\d*)\s*/;
+    
+    // Try: number [unit] name
+    const m1 = clean.match(/^(\d+[\.,]?\d*\/?\d*)\s*([a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]+\.?)?\s+(.+)/);
+    if (m1) {
+      const amount = parseFloat(m1[1].replace(',', '.').replace(/(\/)/g, '/').split('/').reduce((a,b)=>a/b));
+      const unitStr = m1[2] ? m1[2].replace('.','').toLowerCase() : '';
+      const unit = parseUnit(unitStr) || 'ud';
+      const ingName = m1[3].replace(/^de\s+/i, '').trim();
+      if (ingName.length > 1 && !seen.has(ingName.toLowerCase())) {
+        seen.add(ingName.toLowerCase());
+        ingredients.push({ name: ingName, amount: isNaN(amount) ? 1 : amount, unit });
+      }
+      continue;
+    }
+
+    // Try: name + number + unit (e.g. 'tomate 200g')
+    const m2 = clean.match(/^(.+?)\s+(\d+[\.,]?\d*)\s*([a-zA-Z]+\.?)?\s*$/);
+    if (m2) {
+      const ingName = m2[1].trim();
+      const amount = parseFloat(m2[2].replace(',','.'));
+      const unitStr = m2[3] ? m2[3].replace('.','').toLowerCase() : 'ud';
+      const unit = parseUnit(unitStr) || 'ud';
+      if (ingName.length > 1 && !seen.has(ingName.toLowerCase())) {
+        seen.add(ingName.toLowerCase());
+        ingredients.push({ name: ingName, amount: isNaN(amount) ? 1 : amount, unit });
+      }
+      continue;
+    }
+
+    // Al gusto / pizca patterns
+    if (/al gusto|a gusto|c\/n|pizca/i.test(clean)) {
+      const ingName = clean.replace(/al gusto|a gusto|c\/n|pizca de?|,.*$/gi, '').replace(/^[-*•]+\s*/, '').trim();
+      if (ingName.length > 1 && !seen.has(ingName.toLowerCase())) {
+        seen.add(ingName.toLowerCase());
+        ingredients.push({ name: ingName, amount: 1, unit: 'al gusto' });
+      }
+      continue;
+    }
+
+    // Plain ingredient name (no amount detected) — only add if looks like a food
+    if (clean.length > 2 && clean.length < 60 && !/^\d/.test(clean) && !/[.!?]{2,}/.test(clean)) {
+      const ingName = clean.replace(/^(para |con |y |de |el |la |los |las |un |una |unos |unas )/i, '').trim();
+      if (ingName.length > 1 && !seen.has(ingName.toLowerCase())) {
+        seen.add(ingName.toLowerCase());
+        ingredients.push({ name: ingName, amount: 1, unit: 'ud' });
+      }
+    }
+  }
+
+  // Extract notes/preparation
+  const notesMatch = text.match(/(?:elaboraci[oó]n|preparaci[oó]n|modo de preparaci[oó]n|instrucciones|pasos)[:\s]*([\s\S]+)/i);
+  const notes = notesMatch ? notesMatch[1].replace(/
+{3,}/g,'
+
+').trim() : '';
+
+  if (ingredients.length === 0) {
+    area.innerHTML = '<div class="smart-result" style="color:#C0392B">No se pudieron extraer ingredientes. Asegurate de que el texto incluye una seccion de ingredientes con cantidades.</div>';
+    pendingSmartRecipe = null;
+    return;
+  }
+
+  pendingSmartRecipe = { name, category: cat, time, notes, ingredients };
+
+  area.innerHTML = '<div class="smart-result">' +
+    '<div style="font-size:.78rem;color:var(--sage);font-weight:500;margin-bottom:.5rem">' + ingredients.length + ' ingredientes extraidos</div>' +
+    '<strong style="color:var(--olive)">' + esc(name) + '</strong>' +
+    '<div style="font-size:.78rem;color:var(--muted);margin:.2rem 0">' + esc(cat) + (time ? ' - ' + esc(time) : '') + '</div>' +
+    '<div style="margin:.65rem 0;font-size:.85rem"><strong>Ingredientes detectados:</strong><br>' +
+    ingredients.map(i => i.name + ': ' + (i.unit === 'al gusto' ? 'al gusto' : i.amount + ' ' + i.unit)).join('<br>') + '</div>' +
+    '<div style="font-size:.82rem;color:var(--muted)">Podras revisar y ajustar todos los detalles despues de guardar.</div>' +
+    '</div>';
+};
 
 // ---- PHOTO ----
 window.switchPhotoTab=function(mode,btn){document.querySelectorAll('.photo-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('photo-upload-area').style.display=mode==='upload'?'block':'none';document.getElementById('photo-url-area').style.display=mode==='url'?'block':'none';}
